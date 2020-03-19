@@ -43,7 +43,7 @@
           <a class="nav-link" href="../Search/searchRecipes.html">Search Recipes</a>
         </li>
 	<li class="nav-item">
-          <a class="nav-link" href="../newRec/newRecipe.html">Search Recipes</a>
+          <a class="nav-link" href="../newRec/newRecipe.html">New Recipe</a>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
