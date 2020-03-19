@@ -1,0 +1,318 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <body style=background-color:#d1cfcf;>
+  <style>
+  #recipe1{
+  background-color: #ff7366;
+}
+  #recipe2{
+  background-color: #ff7366;
+}
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 4% auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+  </style>
+  <script>
+
+  function Display(id)
+  {
+    document.getElementById("foodRecipe").style.display = "block";
+  }
+
+  function Display2(id)
+  {
+    document.getElementById("genericRecipe").style.display = "block";
+  }
+
+
+  function Close(id)
+  {
+    document.getElementById("foodRecipe").style.display = "none";
+  }
+
+  function Close2(id)
+  {
+    document.getElementById("genericRecipe").style.display = "none";
+  }
+
+  window.onclick = function(event)
+  {
+    if (event.target == document.getElementById("foodRecipe"))
+    {
+      document.getElementById("foodRecipe").style.display = "none";
+    }
+    if (event.target == document.getElementById("genericRecipe"))
+    {
+      document.getElementById("genericRecipe").style.display = "none";
+    }
+  }
+
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Bellota Text' rel='stylesheet'>
+  <style>
+  body {
+      font-family: 'Bellota Text';font-size: 22px;
+  }
+  </style>
+
+  <title>My Recipes</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!-- link to external css page -->
+   <link href="..." rel="stylesheet">
+</head>
+<body>
+  <!-- The Modal -->
+  <div id="foodRecipe" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" onclick="Close(foodRecipe)">&times;</span>
+        <div class="modal-header">
+      <h2>Spaghetti: </h2>
+      </div>
+      <div class="modal-body">
+        <p>Ingredients:</p>
+        <ul>
+          <li>Spaghetti Noodles</li>
+          <li>Marinara Sauce</li>
+          <li>Meatballs</li>
+        </ul>
+        <p>Instructions: </p>
+        <ol>
+          <li>Place water in a deep pan over high heat until it starts to boil.</li>
+          <li>While the water is boiling on a seperate skillet pan over a medium heat place your
+          meatballs and cook thoroughly. </li>
+          <li>Once the meatballs have finished cooking place the marinara sauce in the same pan with the meatballs
+          and lower the heat to a medium setting.</li>
+          <li>Once the water is boiling place your noodles in the boiling water for 12 minutes and toss in a pinch of salt.</li>
+          <li>Once the noodles have finished boiling use a strainger to filter out as much water as you can and plate the noodles</li>
+          <li>Pour the preferred amount of Marinara sauce w/ Meatballs onto your noodles and Enjoy!</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- The Modal -->
+  <div id="genericRecipe" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" onclick="Close2(genericRecipe)">&times;</span>
+        <div class="modal-header">
+      <h2>Recipe Name: </h2>
+      </div>
+      <div class="modal-body">
+        <p>Ingredients:</p>
+        <ul>
+          <li>Ingredient 1</li>
+          <li>Ingredient 2</li>
+          <li>Ingredient 3</li>
+        </ul>
+        <p>Instructions: </p>
+        <ol>
+          <li>Step 1...</li>
+          <li>Step 2...</li>
+          <li>Step 3...</li>
+          <li>Step 4...</li>
+          <li>Step 5...</li>
+          <li>Step 6...</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href=".html">
+        <img class="rounded-circle" src="../images/logoWgrayLetters.jpg" alt="Finish My Dish Logo" width="30" height="30">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="...">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="...">My Recipes<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../FriendsNetwork/friendsPage.html">My Friends</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Search/searchRecipes.html">Search Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../newRec/newRecipe.html">New Recipe</a>
+        </li>
+      </ul>
+      <div class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container">
+      <h1 class="display-4">Recipes</h1>
+      <p class="lead">Here are all the recipes you currently have saved!</p>
+    </div>
+
+<!-- Cards Here -->
+<div class="container">
+  <div class="row card-columns">
+
+<div class="col-sm-4">
+
+  <div class="card">
+    <div id="recipe1">
+    <img class="card-img-top img-fluid" src="../images/spaghetti.jpg" alt="Card image cap" >
+    <button onclick="Display(foodRecipe)">View Recipe</button>
+    <button onclick="">Edit Recipe</button>
+    <button onclick="">Upload</button>
+    <button onclick="">Delete</button>
+    <div class="card-block">
+      <h4 class="card-title">Spaghetti</h4>
+      <p class="card-text">Spaghetti with meatballs in marinara sauce is an Italian classic.</p>
+    </div>
+    <div class="card-block">
+    </div>
+  </div>
+  </div>
+</div>
+<div class="col-sm-4">
+  <div class="card">
+    <div id="recipe2">
+    <img class="card-img-top img-fluid" src="../images/GC.jpg" alt="Card image cap" >
+    <button onclick="Display2(genericRecipe)">View Recipe</button>
+    <button onclick="">Edit Recipe</button>
+    <button onclick="">Upload</button>
+    <button onclick="">Delete</button>
+    <div class="card-block">
+      <h4 class="card-title">Grilled Cheese Sandwhich</h4>
+      <p class="card-text">Melted American cheese on toasted white bread, a simple but delicious treat.</p>
+    </div>
+    <div class="card-block">
+    </div>
+  </div>
+  </div>
+
+</div>
+<div class="col-sm-4">
+  <div class="card">
+    <div id="recipe2">
+    <img class="card-img-top img-fluid" src="../images/genericfood.jfif" alt="Card image cap" >
+    <button onclick="Display2(genericRecipe)">View Recipe</button>
+    <button onclick="">Edit Recipe</button>
+    <button onclick="">Upload</button>
+    <button onclick="">Delete</button>
+    <div class="card-block">
+      <h4 class="card-title">Recipe Here</h4>
+      <p class="card-text">Insert Recipe Description Here, <br>Make it sound tasty</p>
+    </div>
+    <div class="card-block">
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="col-sm-4">
+  <div class="card">
+    <div id="recipe2">
+    <img class="card-img-top img-fluid" src="../images/genericfood.jfif" alt="Card image cap" >
+    <button onclick="Display2(genericRecipe)">View Recipe</button>
+    <button onclick="">Edit Recipe</button>
+    <button onclick="">Upload</button>
+    <button onclick="">Delete</button>
+    <div class="card-block">
+      <h4 class="card-title">Recipe Here</h4>
+      <p class="card-text">Insert Recipe Description Here, <br>Make it sound tasty</p>
+    </div>
+    <div class="card-block">
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="col-sm-4">
+  <div class="card">
+    <div id="recipe2">
+    <img class="card-img-top img-fluid" src="../images/genericfood.jfif" alt="Card image cap" >
+    <button onclick="Display2(genericRecipe)">View Recipe</button>
+    <button onclick="">Edit Recipe</button>
+    <button onclick="">Upload</button>
+    <button onclick="">Delete</button>
+    <div class="card-block">
+      <h4 class="card-title">Recipe Here</h4>
+      <p class="card-text">Insert Recipe Description Here, <br>Make it sound tasty</p>
+    </div>
+    <div class="card-block">
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="col-sm-4">
+  <div class="card">
+    <div id="recipe2">
+    <img class="card-img-top img-fluid" src="../images/genericfood.jfif" alt="Card image cap" >
+    <button onclick="Display2(genericRecipe)">View Recipe</button>
+    <button onclick="">Edit Recipe</button>
+    <button onclick="">Upload</button>
+    <button onclick="">Delete</button>
+    <div class="card-block">
+      <h4 class="card-title">Recipe Here</h4>
+      <p class="card-text">Insert Recipe Description Here, <br>Make it sound tasty</p>
+    </div>
+    <div class="card-block">
+    </div>
+  </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src="../resources/js/my_scripts.js"></script>
+	</body>
+</html>
