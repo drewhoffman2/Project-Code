@@ -70,11 +70,16 @@
 
   window.onclick = function(event)
   {
-    if (event.target == modal)
+    if (event.target == document.getElementById("foodRecipe"))
     {
-      modal.style.display = "none";
+      document.getElementById("foodRecipe").style.display = "none";
+    }
+    if (event.target == document.getElementById("genericRecipe"))
+    {
+      document.getElementById("genericRecipe").style.display = "none";
     }
   }
+
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
