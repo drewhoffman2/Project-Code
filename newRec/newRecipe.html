@@ -18,7 +18,7 @@
   var limit = 10;
   function addInput(divName){
       if (counter == limit)  {
-            alert("You have reached the limit of adding " + counter + " inputs");
+            alert("You have reached the limit of adding " + counter + " ingredients");
         }
      else {
           var newdiv = document.createElement('div');
@@ -71,8 +71,8 @@
   </nav>
 
 <br>
-  <div class="container">
-  <form method="POST">
+  <div class="container" id="inpFormCont">
+  <form method="POST" id="inpForm">
     <div class="form-group">
       <label for="recTitle">Title</label>
       <input type="text" class="form-control" id="recTitle" placeholder="Enter Title">
@@ -80,6 +80,7 @@
 
     <div class="form-group">
       <label for="recImage">Image</label>
+      <br>
       <input type="file" alt="Submit" id="recImage">
     </div>
 
@@ -88,14 +89,16 @@
     </div>
     <br>
     <input type="button" value="Add Ingredient" onClick="addInput('dynamicInput');">
-
-    <div class="form-group">
-      <label for="recDescript">Description:</label>
-      <input type="text" style="height:200px;" class="form-control" id="recDescript" placeholder="Enter Directions/Description">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+<br>
+<br>
   </form>
+  <label>Description:</label>
+  <textarea rows="4" cols="108" name="recDescript" id="recDescript" placeholder="Enter Directions/Description" form="inpForm"></textarea>
+  <br>
+  <br>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
