@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+
+  <link href='https://fonts.googleapis.com/css?family=Bellota Text' rel='stylesheet'>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <style>
+  body {
+      font-family: 'Bellota Text';font-size: 22px;
+  }
+  </style>
+
+  <title>Search Results</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link href="displaySearch.css" rel="stylesheet">
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase.js"></script>
+</head>
+<body>
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href=".html">
+        <img class="rounded-circle" src="../images/logoWgrayLetters.jpg" alt="Finish My Dish Logo" width="30" height="30">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../MyRecipes/MyRecipes.html">My Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../FriendsNetwork/friendsPage.html">My Friends</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/searchRecipes.html">Search Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../newRec/newRecipe.html">New Recipe</a>
+        </li>
+      </ul>
+      <div class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron jumbotron-fluid SearchJumbotron">
+    <div class="container">
+      <h1 class="display-4">Searched Recipes</h1>
+      <p class="lead">Here are the recipes that you may like based on your search.</p>
+    </div>
+  </div>
+
+
+  <div class="search_form">
+    <form  style="margin: auto; width:90%" action='/Search/searchRecipes/advanced' method='GET'>
+      <div class="form-group">
+        <label for="Keyword" style="margin-top: 10px;">Keyword</label>
+        <input name ="keyword" id="keyword" type="text" class="form-control" required>
+      </div>
+      <!-- star rating -->
+      <div class="form-group StarRating">
+        <p>Star Rating</p>
+        <span class="rating">
+        <input type="radio" class="rating-input"
+            id="rating-input-5" name="rating_input" value='5'>
+        <label for="rating-input-5" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-4" name="rating_input" value='4'>
+        <label for="rating-input-4" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-3" name="rating_input" value='3'>
+        <label for="rating-input-3" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-2" name="rating_input" value='2'>
+        <label for="rating-input-2" class="rating-star"></label>
+        <input type="radio" class="rating-input"
+            id="rating-input-1" name="rating_input" value='1'>
+        <label for="rating-input-1" class="rating-star"></label>
+        </span>
+      </div>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="glutenFree" id="inlineCheckbox1" value="Gluten-Free">
+          <label class="form-check-label" for="inlineCheckbox1">Gluten-Free</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="vegetarian" id="inlineCheckbox2" value="Vegetarian">
+          <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="vegan" id="inlineCheckbox3" value="Vegan">
+          <label class="form-check-label" for="inlineCheckbox3">Vegan</label>
+        </div>
+      </div>
+      <!-- ingredient list for user to input ingredients -->
+      <div class="form-group" id="IngredientButtons" class="btn-group" role="group" aria-label="Basic example">
+          <input class="btn btn-dark" type="button" value="Add Ingredient" style="background-color:grey; margin-bottom: 10px" onclick="createNewElement();">
+          <input id="RemoveButton" class='btn btn-dark' type='button' value='Remove Ingredient' style='background-color:grey; margin-bottom: 10px' onclick='removeIngredient()' disabled>
+       </div>
+       <div class="form-group" id="SearchIngredients">
+        <!-- input ingredient inputs if button clicked -->
+       </div>
+       <!-- maximum make time for recipe -->
+       <div class="form-group">
+         <label for="max_time">Maximum Make Time</label>
+         <div>
+           <input class="form-control col-md-2" name="max_time" type="number" id="max_time" placeholder="30">
+         </div>
+       </div>
+       <div>
+         <button type="submit" class="btn btn-dark"  onclick="getAdvancedSearch()" style="margin-top: 10px;margin-bottom: 10px;">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card-deck recipe_cards" style="margin-top:50px">
+    <div class="card">
+      <img class="card-img-top" src="" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <script src="SearchRecipes.js"></script>
+  <script src="../index.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+  </body>
+</html>

@@ -1,0 +1,28 @@
+INSERT INTO users (user_id, username, password, email, created_on, last_login, first_name, last_name)
+VALUES (1, 'linda10', 'password', 'linda@gmail.com', '2020-03-21 09:34:33', '2020-03-23 09:34:33', 'Linda', 'Rose');
+
+INSERT INTO recipes (recipe_id, recipe_name, description, created, ingredients, instructions, rating, user_id, make_time, servings)
+VALUES (1, 'Oven-Fried Ranch Chicken',
+            'Crispy fried chicken with ranch flavors.',
+            '2020-03-21 09:34:33',
+            ARRAY['2 3-to-4-pound chickens (each cut into 8 pieces)',
+            '1/3 cup Chives',
+            'fresh 3/4 tsp Garlic powder',
+            '3/4 tsp Onion powder',
+            '4 sprigs Thyme',
+            '1/2 cup Mayonnaise',
+            '1 Black pepper, Freshly ground',
+            '1/4 tsp Cayenne pepper',
+            '1 Kosher salt',
+            '1 1/2 tsp Paprika',
+            '1 Cooking spray',
+            '3 1/2 cups Breadcrumbs',
+            '1 cup Buttermilk'],
+            ARRAY['Whisk the buttermilk, mayonnaise, half of the thyme, 1 teaspoon paprika, the onion and garlic powders, cayenne and 1 teaspoon salt in a large bowl. Add the chicken and toss to coat; cover and refrigerate at least 3 hours or overnight.',
+            'Position racks in the upper and lower thirds of the oven and preheat the oven to 400 degrees F. Line 2 baking sheets with aluminum foil and set a wire rack on each; coat the racks with cooking spray. Combine the breadcrumbs, chives, the remaining thyme and 1/2 teaspoon paprika, 1 teaspoon salt and 1/2 teaspoon black pepper in a shallow bowl.',
+            'Remove the chicken from the marinade and dredge in the breadcrumb mixture, pressing to adhere. Put the white meat on one wire rack and the dark meat on the other rack, skin-side up. Coat the chicken with cooking spray. Transfer to the oven, placing the dark meat on the bottom oven rack; bake until the crust is golden and a thermometer inserted into the thickest part of the meat registers 165 degrees F, 50 to 55 minutes. Let cool slightly on the wire racks, 10 minutes. Season with salt.'],
+            4,
+            1,
+            2200,
+            8
+        );
