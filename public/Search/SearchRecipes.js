@@ -34,3 +34,65 @@ function clickAdvance() {
   var x = document.getElementById("myText").required;
   console.log(x);
 }
+
+
+// function to get the search from the user
+function getSearch() {
+  // clear localStorage to reset search info
+  localStorage.clear();
+
+  var search = document.getElementById("search").value;
+  localStorage.setItem("Search", search);
+  // redirct the page to displaSearch page
+  window.location.href='displaySearch.html';
+}
+
+function getAdvancedSearch() {
+  // clear localStorage to reset search info
+  localStorage.clear();
+
+  var keyword = document.getElementById("keyword").value;
+  localStorage.setItem("Keyword", keyword);
+
+  var rating = document.getElementsByName("rating_input");
+  var rate;
+  for (var i = 0; i < rating.length; i++) {
+    if (rating[i].checked) {
+      rate = rating[i].value;
+    }
+  }
+  localStorage.setItem("Rating", rate);
+
+  // if statements to check if glutenFree. vegetarian, or vegan are clicked and add to localStorage
+  if (document.getElementById("glutenFree").checked) {
+    localStorage.setItem("GlutenFree", "Gluten Free");
+  }
+
+  if (document.getElementById("vegetarian").checked) {
+    localStorage.setItem("Vegetarian", "Vegetarian");
+  }
+
+  if (document.getElementById("vegan").checked) {
+    localStorage.setItem("Vegan", "Vegan");
+  }
+
+
+
+  var ingre = [];
+  var i = 0;
+  var id = "Ingredient" + (i+1);
+  while (document.getElementById(id)) {
+    ingre[i] = document.getElementById(id).value;
+    i++;
+    id = "Ingredient" + (i+1);
+    localStorage.setItem("Ingredient", JSON.stringify(ingre));
+  }
+
+  if (document.getElementById("max_time").value !== null) {
+      var time = document.getElementById("max_time").value;
+      localStorage.setItem("MaxTime", time);
+  }
+
+  // redirct the page to displaSearch page
+  window.location.href='displaySearch.html';
+}

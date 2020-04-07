@@ -21,6 +21,7 @@
   <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase.js"></script>
 </head>
 <body>
+
   <!-- navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href=".html">
@@ -85,9 +86,9 @@
   <form class="form-inline">
     <div class="form-group col-lg-6 justify-content-center">
       <div class="input-group">
-         <input class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="search" placeholder="search" required>
+         <input id="search" class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="search" placeholder="search" required>
          <span class="input-group-append">
-             <button class="btn rounded-pill border-0 ml-n5" type="submit">
+             <button class="btn rounded-pill border-0 ml-n5" onClick="getSearch()" type="button">
                    <i class="fa fa-search"></i>
              </button>
          </span>
@@ -128,15 +129,15 @@
       </div>
       <div class="form-group">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="glutenFree" id="inlineCheckbox1" value="Gluten-Free">
+          <input class="form-check-input" type="checkbox" name="glutenFree" id="glutenFree" value="Gluten-Free">
           <label class="form-check-label" for="inlineCheckbox1">Gluten-Free</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="vegetarian" id="inlineCheckbox2" value="Vegetarian">
+          <input class="form-check-input" type="checkbox" name="vegetarian" id="vegetarian" value="Vegetarian">
           <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="vegan" id="inlineCheckbox3" value="Vegan">
+          <input class="form-check-input" type="checkbox" name="vegan" id="vegan" value="Vegan">
           <label class="form-check-label" for="inlineCheckbox3">Vegan</label>
         </div>
       </div>
@@ -156,7 +157,7 @@
          </div>
        </div>
        <div>
-         <button type="submit" class="btn btn-dark" style="margin-top: 10px;margin-bottom: 10px;">Search</button>
+         <button type="submit" onclick="getAdvancedSearch()" class="btn btn-dark" style="margin-top: 10px;margin-bottom: 10px;">Search</button>
       </div>
     </form>
   </div>

@@ -21,6 +21,77 @@
   <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase.js"></script>
 </head>
 <body>
+  <!-- When page loads, enter in variables to next page -->
+  <script>
+    window.onload = function() {
+      var node = document.createElement('LI');
+      var textnode;
+      if (localStorage.getItem("Search")) {
+        var word = localStorage.getItem('Search');
+        word = word.charAt(0).toUpperCase()+word.slice(1);
+        textnode = document.createTextNode(word);
+        node.appendChild(textnode);
+        document.getElementById("search-list").appendChild(node);
+        //document.getElementById("search").innerHTML += localStorage.getItem('Search');
+      }
+      else {
+        textnode = document.createTextNode(localStorage.getItem('Keyword'));
+        node.appendChild(textnode);
+        document.getElementById("search-list").appendChild(node);
+        if (localStorage.getItem('Rating')) {
+          var node = document.createElement('LI');
+          textnode = document.createTextNode("Rating: " + localStorage.getItem('Rating'));
+          node.appendChild(textnode);
+          document.getElementById("search-list").appendChild(node);
+        }
+        if (localStorage.getItem('GlutenFree')) {
+          var node = document.createElement('LI');
+          textnode = document.createTextNode(localStorage.getItem('GlutenFree'));
+          node.appendChild(textnode);
+          document.getElementById("search-list").appendChild(node);
+        }
+        if (localStorage.getItem('Vegetarian')) {
+          var node = document.createElement('LI');
+          textnode = document.createTextNode(localStorage.getItem('Vegetarian'));
+          node.appendChild(textnode);
+          document.getElementById("search-list").appendChild(node);
+        }
+        if (localStorage.getItem('Vegan')) {
+          var node = document.createElement('LI');
+          textnode = document.createTextNode(localStorage.getItem('Vegan'));
+          node.appendChild(textnode);
+          document.getElementById("search-list").appendChild(node);
+        }
+
+        if (localStorage.getItem("Ingredient")) {
+          ingred = JSON.parse(localStorage.getItem("Ingredient"));
+
+          var node = document.createElement('LI');
+          for (var i = 0; i < ingred.length; i++) {
+            var text = ingred[i].charAt(0).toUpperCase()+ingred[i].slice(1);
+            if (i == 0) {
+              textnode = "Ingredient(s): " + text;
+            }
+            else {
+                textnode += ", " + text;
+            }
+          }
+          console.log(textnode)
+          textnode = document.createTextNode(textnode)
+          node.appendChild(textnode);
+          document.getElementById("search-list").appendChild(node);
+        }
+
+        if (localStorage.getItem('MaxTime')) {
+          var node = document.createElement('LI');
+          textnode = document.createTextNode("Max Time: " + localStorage.getItem('MaxTime'));
+          node.appendChild(textnode);
+          document.getElementById("search-list").appendChild(node);
+        }
+
+      }
+    }
+  </script>
   <!-- navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href=".html">
@@ -61,69 +132,15 @@
   </div>
 
 
-  <div class="search_form">
-    <form  style="margin: auto; width:90%" action='/Search/searchRecipes/advanced' method='GET'>
-      <div class="form-group">
-        <label for="Keyword" style="margin-top: 10px;">Keyword</label>
-        <input name ="keyword" id="keyword" type="text" class="form-control" required>
-      </div>
-      <!-- star rating -->
-      <div class="form-group StarRating">
-        <p>Star Rating</p>
-        <span class="rating">
-        <input type="radio" class="rating-input"
-            id="rating-input-5" name="rating_input" value='5'>
-        <label for="rating-input-5" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-4" name="rating_input" value='4'>
-        <label for="rating-input-4" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-3" name="rating_input" value='3'>
-        <label for="rating-input-3" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-2" name="rating_input" value='2'>
-        <label for="rating-input-2" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-1" name="rating_input" value='1'>
-        <label for="rating-input-1" class="rating-star"></label>
-        </span>
-      </div>
-      <div class="form-group">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="glutenFree" id="inlineCheckbox1" value="Gluten-Free">
-          <label class="form-check-label" for="inlineCheckbox1">Gluten-Free</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="vegetarian" id="inlineCheckbox2" value="Vegetarian">
-          <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="vegan" id="inlineCheckbox3" value="Vegan">
-          <label class="form-check-label" for="inlineCheckbox3">Vegan</label>
-        </div>
-      </div>
-      <!-- ingredient list for user to input ingredients -->
-      <div class="form-group" id="IngredientButtons" class="btn-group" role="group" aria-label="Basic example">
-          <input class="btn btn-dark" type="button" value="Add Ingredient" style="background-color:grey; margin-bottom: 10px" onclick="createNewElement();">
-          <input id="RemoveButton" class='btn btn-dark' type='button' value='Remove Ingredient' style='background-color:grey; margin-bottom: 10px' onclick='removeIngredient()' disabled>
-       </div>
-       <div class="form-group" id="SearchIngredients">
-        <!-- input ingredient inputs if button clicked -->
-       </div>
-       <!-- maximum make time for recipe -->
-       <div class="form-group">
-         <label for="max_time">Maximum Make Time</label>
-         <div>
-           <input class="form-control col-md-2" name="max_time" type="number" id="max_time" placeholder="30">
-         </div>
-       </div>
-       <div>
-         <button type="submit" class="btn btn-dark"  onclick="getAdvancedSearch()" style="margin-top: 10px;margin-bottom: 10px;">Search</button>
-      </div>
-    </form>
-  </div>
+  <form id="user_search">
+    <div class="form-group search-group">
+      <h5>Here is what you searched:</h5>
+      <ul id="search-list">
+      </ul>
+    </div>
+  </form>
 
-  <div class="card-deck recipe_cards" style="margin-top:50px">
+  <div class="card-deck recipe_cards" style="margin-left: 10px; margin-right:10px;margin-top:50px">
     <div class="card">
       <img class="card-img-top" src="" alt="Card image cap">
       <div class="card-body">
