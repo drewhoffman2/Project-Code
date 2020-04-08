@@ -24,71 +24,15 @@
   <!-- When page loads, enter in variables to next page -->
   <script>
     window.onload = function() {
-      var node = document.createElement('LI');
-      var textnode;
       if (localStorage.getItem("Search")) {
-        var word = localStorage.getItem('Search');
-        word = word.charAt(0).toUpperCase()+word.slice(1);
-        textnode = document.createTextNode(word);
-        node.appendChild(textnode);
-        document.getElementById("search-list").appendChild(node);
-        //document.getElementById("search").innerHTML += localStorage.getItem('Search');
+        // call function to upload user search info from search bar
+        uploadSearch();
+        // call function to find search results and display to the page
+        findResults("regular");
       }
       else {
-        textnode = document.createTextNode(localStorage.getItem('Keyword'));
-        node.appendChild(textnode);
-        document.getElementById("search-list").appendChild(node);
-        if (localStorage.getItem('Rating')) {
-          var node = document.createElement('LI');
-          textnode = document.createTextNode("Rating: " + localStorage.getItem('Rating'));
-          node.appendChild(textnode);
-          document.getElementById("search-list").appendChild(node);
-        }
-        if (localStorage.getItem('GlutenFree')) {
-          var node = document.createElement('LI');
-          textnode = document.createTextNode(localStorage.getItem('GlutenFree'));
-          node.appendChild(textnode);
-          document.getElementById("search-list").appendChild(node);
-        }
-        if (localStorage.getItem('Vegetarian')) {
-          var node = document.createElement('LI');
-          textnode = document.createTextNode(localStorage.getItem('Vegetarian'));
-          node.appendChild(textnode);
-          document.getElementById("search-list").appendChild(node);
-        }
-        if (localStorage.getItem('Vegan')) {
-          var node = document.createElement('LI');
-          textnode = document.createTextNode(localStorage.getItem('Vegan'));
-          node.appendChild(textnode);
-          document.getElementById("search-list").appendChild(node);
-        }
-
-        if (localStorage.getItem("Ingredient")) {
-          ingred = JSON.parse(localStorage.getItem("Ingredient"));
-
-          var node = document.createElement('LI');
-          for (var i = 0; i < ingred.length; i++) {
-            var text = ingred[i].charAt(0).toUpperCase()+ingred[i].slice(1);
-            if (i == 0) {
-              textnode = "Ingredient(s): " + text;
-            }
-            else {
-                textnode += ", " + text;
-            }
-          }
-          console.log(textnode)
-          textnode = document.createTextNode(textnode)
-          node.appendChild(textnode);
-          document.getElementById("search-list").appendChild(node);
-        }
-
-        if (localStorage.getItem('MaxTime')) {
-          var node = document.createElement('LI');
-          textnode = document.createTextNode("Max Time: " + localStorage.getItem('MaxTime'));
-          node.appendChild(textnode);
-          document.getElementById("search-list").appendChild(node);
-        }
-
+        // call function to upload user search info from advanced form
+        uploadAdvancedSearch();
       }
     }
   </script>
@@ -112,7 +56,7 @@
           <a class="nav-link" href="../FriendsNetwork/friendsPage.html">My Friends</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/searchRecipes.html">Search Recipes</a>
+          <a class="nav-link" href="searchRecipes.html">Search Recipes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../newRec/newRecipe.html">New Recipe</a>
@@ -140,36 +84,16 @@
     </div>
   </form>
 
-  <div class="card-deck recipe_cards" style="margin-left: 10px; margin-right:10px;margin-top:50px">
-    <div class="card">
-      <img class="card-img-top" src="" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
+  <!-- display the search results within this div element -->
+  <div id="results" class="container" style="margin-top:50px;">
+
   </div>
+
   <br>
 
-  <script src="SearchRecipes.js"></script>
+
   <script src="../index.js"></script>
+  <script src="SearchRecipes.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
