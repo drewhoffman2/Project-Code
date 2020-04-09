@@ -61,9 +61,9 @@ function getAdvancedSearch() {
   for (var i = 0; i < rating.length; i++) {
     if (rating[i].checked) {
       rate = rating[i].value;
+      localStorage.setItem("Rating", rate);
     }
   }
-  localStorage.setItem("Rating", rate);
 
   // if statements to check if glutenFree. vegetarian, or vegan are clicked and add to localStorage
   if (document.getElementById("glutenFree").checked) {
@@ -114,36 +114,68 @@ function uploadSearch() {
 function uploadAdvancedSearch() {
   var node = document.createElement('LI');
   var textnode;
+  // array to hold if the user had a requirement for each search choice
+  var requirements = [];
 
   textnode = document.createTextNode(localStorage.getItem('Keyword'));
   node.appendChild(textnode);
   document.getElementById("search-list").appendChild(node);
+  // check if there was a rating preference
   if (localStorage.getItem('Rating')) {
+    // push 1 into array to show there was a rating
+    requirements.push(1);
     var node = document.createElement('LI');
     textnode = document.createTextNode("Rating: " + localStorage.getItem('Rating'));
     node.appendChild(textnode);
     document.getElementById("search-list").appendChild(node);
   }
+  else {
+    // push 0 into array --> no rating
+    requirements.push(0);
+  }
+
   if (localStorage.getItem('GlutenFree')) {
+    // push 1 into array --> there was gluten free requirement
+    requirements.push(1);
     var node = document.createElement('LI');
     textnode = document.createTextNode(localStorage.getItem('GlutenFree'));
     node.appendChild(textnode);
     document.getElementById("search-list").appendChild(node);
   }
+  else {
+    // 0 --> there is no gluten free
+    requirements.push(0);
+  }
+
   if (localStorage.getItem('Vegetarian')) {
+    // push 1 --> there was a requirement
+    requirements.push(1);
     var node = document.createElement('LI');
     textnode = document.createTextNode(localStorage.getItem('Vegetarian'));
     node.appendChild(textnode);
     document.getElementById("search-list").appendChild(node);
   }
+  else {
+    // push 0 --> there was no requirement
+    requirements.push(0);
+  }
+
   if (localStorage.getItem('Vegan')) {
+    // push 1 --> there was a requirement
+    requirements.push(1);
     var node = document.createElement('LI');
     textnode = document.createTextNode(localStorage.getItem('Vegan'));
     node.appendChild(textnode);
     document.getElementById("search-list").appendChild(node);
   }
+  else {
+    // push 0 --> there was no requirement
+    requirements.push(0);
+  }
 
   if (localStorage.getItem("Ingredient")) {
+    // push 1 --> there was a requirement
+    requirements.push(1);
     ingred = JSON.parse(localStorage.getItem("Ingredient"));
 
     var node = document.createElement('LI');
@@ -156,18 +188,31 @@ function uploadAdvancedSearch() {
           textnode += ", " + text;
       }
     }
-    console.log(textnode)
+    //console.log(textnode)
     textnode = document.createTextNode(textnode)
     node.appendChild(textnode);
     document.getElementById("search-list").appendChild(node);
   }
+  else {
+    // push 0 --> there was no requirement
+    requirements.push(0);
+  }
 
   if (localStorage.getItem('MaxTime')) {
+    // push 1 --> there was a requirement
+    requirements.push(1);
     var node = document.createElement('LI');
     textnode = document.createTextNode("Max Time: " + localStorage.getItem('MaxTime'));
     node.appendChild(textnode);
     document.getElementById("search-list").appendChild(node);
   }
+  else {
+    // push 0 --> there was no requirement
+    requirements.push(0);
+  }
+
+  // put requirements array into local storage
+  localStorage.setItem("Requirements", requirements)
 }
 
 
@@ -180,7 +225,12 @@ function findResults(type) {
   if (type == "regular") {
     // getting data
     // will either call gotData or errData function
-    ref.on('value', gotData, errData);
+    //console.log("Search");
+    ref.on('value', gotDataSearch, errData);
+  }
+  else {
+    //console.log("Advanced");
+    ref.on('value', gotDataAdvanced, errData);
   }
 }
 
@@ -208,12 +258,10 @@ function createCard(array) {
   for (var i = 0; i < array.length; i++) {
     if (i == 0) {
       card += '<div class="row">';
-      //card += '<div style="width: 30%">';
     }
-    console.log("second");
     card += '<div class="col-sm-6">';
-    card += '<div class="card" style="height: 17rem;">';
-    card += '<div class="card-body">';
+    card += '<div class="card h-100">';
+    card += '<div class="card-body" style="word-wrap: break-word;">';
     card += '<h5 class="card-title">'+array[i].recipe_name+'</h5>';
     card += '<p class="card-text">'+array[i].descrip+'</p>';
     card += '<p class="card-text">Rating: '+array[i].rating+'</p>';
@@ -230,14 +278,16 @@ function createCard(array) {
     }
     count++;
   }
-
   // insert card into innerHTML of div
   document.getElementById("results").innerHTML += card;
+}
 
+function noRecipe() {
+  document.getElementById("results").innerHTML += "<p>Sorry, there are no recipes based on your search.</p>";
 }
 
 // function to get the data from the database
-function gotData(data) {
+function gotDataSearch(data) {
   //console.log(data.val());
 
   // set recipes to the data in database
@@ -278,17 +328,176 @@ function gotData(data) {
     else {
       // if that checks if user search is in the recipe name
       if (recipe_name_lower.includes(search)) {
-        num++;
         // add recipe to array
         recipe_array.push(recipes[k]);
       }
     }
   }
 
-  // call function to create a card with recipe found
-  createCard(recipe_array);
-
+  // if that checks if there was any found recipes
+  // if there was a hit --> create cards in html with recipes
+  if (recipe_array.length == 0) {
+    noRecipe();
+  }
+  else {
+    // call function to create a card with recipe found
+    createCard(recipe_array);
+  }
 }
+
+function gotDataAdvanced(data) {
+
+  // set recipes to the data in database
+  var recipes = data.val();
+  // get data in array for all keys in recipes
+  var keys = Object.keys(recipes);
+  //console.log(keys);
+  // array to hold found recipes
+  var recipe_array = [];
+
+  console.log(recipes);
+  // for loop that runs through keys in recipes
+  for (var i = 0; i < keys.length; i++) {
+    // declare variables
+    var k = keys[i];
+    var recipe_name = recipes[k].recipe_name;
+    var found = false;
+    // make strings to lower case to make searching strings easier
+    var recipe_name_lower = recipe_name.toLowerCase();
+    var keyword = localStorage.getItem("Keyword").toLowerCase();
+    // if that checks if the user keyword is more than one word
+    if (keyword.split(' ').length >= 2) {
+      var split = keyword.split(' ');
+      var count = 0;
+      // for loop that runs through all search words to find a match in recipes
+      for (var j = 0; j < split.length; j++) {
+        var word = split[j].toString();
+        // if that checks if user search is in the recipe name
+        if (recipe_name_lower.includes(word)) {
+          count++;
+        }
+      }
+      //if that checks if there was 2 words to match recipe to display
+      if (count >= 2) {
+        // set keyowrd found to true
+        found = true;
+      }
+    }
+    // else search is only one word
+    else {
+      // if that checks if user search is in the recipe name
+      if (recipe_name_lower.includes(keyword)) {
+        // set keyowrd found to true
+        found = true;
+      }
+    }
+
+    // if there was a match with the keyword --> continue on with other requirements in search
+    // otherwise, test other recipes
+
+    if (found == true) {
+      console.log(localStorage.getItem("Requirements"));
+      var requirements = localStorage.getItem("Requirements");
+
+
+      // check if there was a rating requirement
+      if (requirements[0] == 1) {
+        //console.log("Rating");
+        var rating = recipes[k].rating;
+        var user_rating = localStorage.getItem("Rating");
+        // check to see if the user rating does not match the current recipes rating
+        if (rating != user_rating) {
+          // set found to false showing this recipe is not a match
+          found = false;
+        }
+      }
+      console.log("Zero:"  + found);
+
+      // check if there is a gluten free requirement
+      if (found == true && requirements[1] == 1) {
+        var gf = recipes[k].glutenFree;
+        var user_gf = localStorage.getItem("glutenFree");
+        // check to see if the recipe's gluten free matches the user
+        if (gf != user_gf) {
+          // if recipe is not gluten free --> found is false --> recipe does not match
+          found = false;
+        }
+      }
+      console.log("One:"  + found);
+
+      // check if there is a vegetarian requirement
+      if (found == true && requirements[2] == 1) {
+        var veg = recipes[k].vegetarian;
+        var user_veg = localStorage.getItem("Vegetarian");
+        // check to see if the recipe's vegetarian matches the user
+        if (veg != user_veg) {
+          // if recipe is not vegetarian --> found is false --> recipe does not match
+          found = false;
+        }
+      }
+      console.log("Two:"  + found);
+
+      // check if there is a vegan requirement
+      if (found == true && requirements[3] == 1) {
+        var vegan = recipes[k].vegan;
+        var user_vegan = localStorage.getItem("Vegan");
+        // check to see if the recipe's vegan matches the user
+        if (vegan != user_vegan) {
+          // if recipe is not vegan --> found is false --> recipe does not match
+          found = false;
+        }
+      }
+      console.log("Three:"  + found);
+
+      console.log(found);
+      // check if there is a vegan requirement
+      if (found == true && requirements[4] == 1) {
+        console.log("Ingredients");
+        var ingred = recipes[k].ingredients.toLowerCase();
+        var user_ingred = localStorage.getItem("Ingredients").toLowerCase();
+        // set found to false
+        found = false;
+        // check to see if any of the recipe's ingredients matches the user
+        for (var u = 0; u < user_ingred.length; u++) {
+          for (var a = 0; a < ingred.length; a++) {
+            console.log(ingred[a] + ", " + user_ingred[u]);
+            if (ingred[a].includes(user_ingred[u])) {
+              found = true;
+            }
+          }
+        }
+      }
+
+      // check if there is a vegetarian requirement
+      if (found == true && requirements[5] == 1) {
+        var time = recipes[k].vegetarian;
+        var user_time = localStorage.getItem("Vegetarian");
+        // check to see if the recipe's gluten free matches the user
+        if (time != user_time) {
+          // if recipe is not gluten free --> found is false --> recipe does not match
+          found = false;
+        }
+      }
+
+      // check to see if the current recipe matches all requirements
+      if (found == true) {
+        // add recipe to array
+        recipe_array.push(recipes[k]);
+      }
+    }
+  }
+
+  // if that checks if there was any found recipes
+  // if there was a hit --> create cards in html with recipes
+  if (recipe_array.length == 0) {
+    noRecipe();
+  }
+  else {
+    // call function to create a card with recipe found
+    createCard(recipe_array);
+  }
+}
+
 
 function errData() {
   console.log("Error!");
