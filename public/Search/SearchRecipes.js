@@ -35,6 +35,22 @@ function clickAdvance() {
   console.log(x);
 }
 
+/*
+  HELPER FUNCTIONS
+*/
+
+// function that capitalize the first letter of a word
+function capitalize(word) {
+  var newWord = "";
+  var array = word.split(" ");
+  for (var i = 0; i < array.length; i++) {
+    newWord += array[i].charAt(0).toUpperCase() + array[i].slice(1);
+    newWord += " ";
+  }
+  return newWord;
+}
+
+// END OF HELPER FUNCTIONS
 
 // function to get the search from the user
 function getSearch() {
@@ -103,7 +119,7 @@ function uploadSearch() {
   var textnode;
 
   var word = localStorage.getItem('Search');
-  word = word.charAt(0).toUpperCase()+word.slice(1);
+  word = capitalize(word);
   textnode = document.createTextNode(word);
   node.appendChild(textnode);
   document.getElementById("search-list").appendChild(node);
@@ -117,7 +133,9 @@ function uploadAdvancedSearch() {
   // array to hold if the user had a requirement for each search choice
   var requirements = [];
 
-  textnode = document.createTextNode(localStorage.getItem('Keyword'));
+  textnode = capitalize(localStorage.getItem('Keyword'));
+  textnode = document.createTextNode(textnode);
+
   node.appendChild(textnode);
   document.getElementById("search-list").appendChild(node);
   // check if there was a rating preference
@@ -180,7 +198,7 @@ function uploadAdvancedSearch() {
 
     var node = document.createElement('LI');
     for (var i = 0; i < ingred.length; i++) {
-      var text = ingred[i].charAt(0).toUpperCase()+ingred[i].slice(1);
+      var text = capitalize(ingred[i]);
       if (i == 0) {
         textnode = "Ingredient(s): " + text;
       }
@@ -411,10 +429,9 @@ function gotDataAdvanced(data) {
           found = false;
         }
       }
-      console.log("Zero:"  + found);
 
       // check if there is a gluten free requirement
-      if (found == true && requirements[1] == 1) {
+      if (found == true && requirements[2] == 1) {
         var gf = recipes[k].glutenFree;
         var user_gf = localStorage.getItem("glutenFree");
         // check to see if the recipe's gluten free matches the user
@@ -423,10 +440,9 @@ function gotDataAdvanced(data) {
           found = false;
         }
       }
-      console.log("One:"  + found);
 
       // check if there is a vegetarian requirement
-      if (found == true && requirements[2] == 1) {
+      if (found == true && requirements[4] == 1) {
         var veg = recipes[k].vegetarian;
         var user_veg = localStorage.getItem("Vegetarian");
         // check to see if the recipe's vegetarian matches the user
@@ -435,10 +451,9 @@ function gotDataAdvanced(data) {
           found = false;
         }
       }
-      console.log("Two:"  + found);
 
       // check if there is a vegan requirement
-      if (found == true && requirements[3] == 1) {
+      if (found == true && requirements[6] == 1) {
         var vegan = recipes[k].vegan;
         var user_vegan = localStorage.getItem("Vegan");
         // check to see if the recipe's vegan matches the user
@@ -447,29 +462,35 @@ function gotDataAdvanced(data) {
           found = false;
         }
       }
-      console.log("Three:"  + found);
 
-      console.log(found);
       // check if there is a vegan requirement
-      if (found == true && requirements[4] == 1) {
-        console.log("Ingredients");
-        var ingred = recipes[k].ingredients.toLowerCase();
-        var user_ingred = localStorage.getItem("Ingredients").toLowerCase();
+      if (found == true && requirements[8] == 1) {
+        var ingred = recipes[k].ingredients;
+        var user_ingred = JSON.parse(localStorage.getItem("Ingredient"));
         // set found to false
         found = false;
+        // var to have count of number of user ingredients
+        var count = user_ingred.length, counter = 0;
         // check to see if any of the recipe's ingredients matches the user
         for (var u = 0; u < user_ingred.length; u++) {
           for (var a = 0; a < ingred.length; a++) {
-            console.log(ingred[a] + ", " + user_ingred[u]);
+            console.log("Recipe: " + ingred[a]);
+            console.log("User: " + user_ingred[u]);
             if (ingred[a].includes(user_ingred[u])) {
-              found = true;
+              counter++;
+              console.log("Counter: " + counter);
             }
           }
+        }
+
+        // check to see if the current recipe has all the ingredients that the user selected
+        if (counter == count) {
+          found = true;
         }
       }
 
       // check if there is a vegetarian requirement
-      if (found == true && requirements[5] == 1) {
+      if (found == true && requirements[10] == 1) {
         var time = recipes[k].vegetarian;
         var user_time = localStorage.getItem("Vegetarian");
         // check to see if the recipe's gluten free matches the user

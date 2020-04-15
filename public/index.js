@@ -21,72 +21,43 @@ var ref = database.ref('recipes');
 //start working with recipes to get database started
 
 // var recipe = {
-//   recipe_name: "Easy Sugar Cookies",
-//   descrip: "Quick and easy sugar cookies! They are really good, plain or with candies in them. My friend uses chocolate mints on top, and they're great!",
-//   directions: ["Step 1", "Preheat oven to 375 degrees F (190 degrees C). In a small bowl, stir together flour, baking soda, and baking powder. Set aside.", "Step 2", "In a large bowl, cream together the butter and sugar until smooth. Beat in egg and vanilla. Gradually blend in the dry ingredients. Roll rounded teaspoonfuls of dough into balls, and place onto ungreased cookie sheets.", "Step 3", "Bake 8 to 10 minutes in the preheated oven, or until golden. Let stand on cookie sheet two minutes before removing to cool on wire racks."],
-//   rating: 4,
+//   recipe_name: "Vegan Brownies (Insanely Fudgy!)",
+//   descrip: "This vegan brownie recipe is rich and insanely fudgy! A wholesome treat that tastes decadent, it’s also gluten-free and mostly whole food plant-based.",
+//   directions: ["Preheat the oven to 350ºF. Line an 8-inch square pan with a piece of parchment paper, leaving an overhang on two opposite sides. Set aside.", "In a medium bowl, whisk together the almond butter, maple syrup, applesauce, and vanilla.", "To the almond butter mixture, add the cocoa powder, coconut flour, baking soda, and salt. Whisk to combine, ensuring that there are no dry lumps of cocoa in the batter.", "In a double boiler, melt half of the chocolate chunks. Vigorously stir the melted chocolate into the brownie batter until fully incorporated.", "Scrape the brownie batter into the prepared baking pan. Smooth the batter out evenly with a spatula, pushing it into the edges and corners of the pan. (We used a 9-inch pan, so we did not smooth entirely into one side to keep the brownies on the thicker side.)", "Scatter the reserved chocolate chunks and rough-chopped nuts over the top. Slide the pan into the oven, and bake the brownies until the top is slightly firm and appears dry and lightly cracked, about 27 to 30 minutes.", "Cool the brownies completely in the pan set on a wire rack. Then, cover the brownies and place them in the refrigerator for at least 1 hour. This step is crucial. The brownies will not cut neatly unless they get adequate cooling time. (We enjoyed the brownies even more a day later after refrigerating over night.)", "Right before slicing the brownies, run a chef’s knife under hot water and dry it off, then slice into squares and serve."],
+//   rating: 3,
 //   gluten_free: 0,
 //   vegetarian: 0,
-//   vegan: 0,
-//   ingredients: ["2 ¾ cups all-purpose flour", "1 teaspoon baking soda", "½ teaspoon baking powder", "1 cup butter, softened", "1 ½ cups white sugar", "1 egg", "1 teaspoon vanilla extract"],
-//   make_time: 25,
-//   servings: 48
-// }
-// ref.push(recipe);
-//
-// recipe = {
-//   recipe_name: "Bacon & Spinach Stuffed Chicken",
-//   descrip: "Hasselback your chicken by cutting shallow slits into your chicken breasts (don't cut all the way through!) and stuff each slit with bacon and a creamy spinach and artichoke filling. It will make your weeknight chicken dinner sing!",
-//   directions: ["Preheat oven to 400°. Line a large baking sheet with foil. Make slits widthwise in chicken, being careful not to cut all the way through chicken. Season with salt and pepper. Place on prepared baking sheet.", "In a medium bowl, combine cream cheese, spinach, artichokes, and ½ cup of mozzarella. Season with salt, pepper, and a pinch of red pepper flakes. Fill every other slit with cream cheese mixture and fill remaining slits with a piece of bacon. Sprinkle remaining ½ cup mozzarella on top and drizzle with oil.", "Bake until chicken is cooked through and bacon is crispy, 35 minutes."],
-//   rating: 5,
-//   gluten_free: 0,
-//   vegetarian: 0,
-//   vegan: 0,
-//   ingredients: ["4 boneless skinless chicken breasts", "Kosher salt", "Freshly ground black pepper", "4 oz. cream cheese, softened", "1/2 c. frozen spinach, defrosted and drained", "1/3 c. chopped artichoke hearts", "1 c. shredded mozzarella, divided", "Pinch crushed red pepper flakes", "4 strips bacon, cut into 4 strips", "2 tbsp. extra-virgin olive oil "],
-//   make_time: 50,
-//   servings: 4
-// }
-// ref.push(recipe);
-//
-// recipe = {
-//   recipe_name: "Vegan Chocolate Chip Cookies",
-//   descrip: "These vegan chocolate chip cookies are a one-bowl recipe that makes for a chewy gluten free cookie topped with flaky sea salt. In a word: Incredible!",
-//   directions: ["Preheat the oven to 350F and line a baking sheet with parchment paper.", "In the bottom of a large bowl, whisk together the ground flaxseed and water and let thicken for 5 minutes.", "To the same bowl, add the coconut oil, sugar, almond butter, and vanilla. Whisk until well combined. Add the almond flour and sprinkle the baking soda and salt evenly over the mixture. Use a spatula or wooden spoon to stir until well combined, adding 1 to 2 tablespoons water if the mixture is too dry. Fold in the chocolate chips.", "Use a 2-tablespoon cookie scoop to scoop the dough onto the baking sheet. Press each ball down slightly and sprinkle with flaky sea salt, if using. Bake for 10 to 13 minutes or until the edges are just starting the brown.", "Cool on the pan for 5 minutes and then transfer to a wire rack to finish cooling.", "When the cookies are completely cool, they can be stored in an airtight container or frozen. (To reheat frozen cookies, bake in a 350F oven for 5 minutes or until warmed through.)"],
-//   rating: 4,
-//   gluten_free: 0,
-//   vegetarian: 1,
 //   vegan: 1,
-//   ingredients: ["1 tablespoon ground flaxseed", "3 tablespoons water, plus more if necessary", "2 tablespoons coconut oil, softened but not melted", "1/2 cup brown sugar (or coconut sugar)", "1/4 cup almond butter", "1 teaspoon vanilla extract", "2 cups almond flour", "1/2 teaspoon baking soda", "1/4 teaspoon sea salt", "1/2 cup vegan semisweet chocolate chips", "Flaky sea salt, for sprinkling"],
-//   make_time: 25,
+//   ingredients: ["3/4 cup almond butter", "1/4 cup plus 2 tablespoons pure maple syrup", "3/4 cup unsweetened applesauce", "1 1/2 teaspoons pure vanilla extract", "1/2 cup unsweetened cocoa powder", "3 tablespoons coconut flour", "3/4 teaspoon baking soda", "1/2 teaspoon kosher salt", "1/2 cup chopped chocolate from a 70% dark dairy-free chocolate bar, divided", "3 tablespoons whole almonds, roughly chopped"],
+//   make_time: 105,
 //   servings: 16
 // }
 // ref.push(recipe);
 //
 // recipe = {
-//   recipe_name: "Oatmeal Chocolate Chip Cookies",
-//   descrip: "Here’s the very best oatmeal chocolate chip cookies recipe you’ll find! Chewy and packed with chocolate, a hint of molasses makes them utterly irresistible.",
-//   directions: ["In a medium bowl, whisk all-purpose flour, baking soda, baking powder, cinnamon, and kosher salt.", "In the bowl of a stand mixer, mix the butter, brown sugar, and granulated sugar on medium high for 1 to 2 minutes, scraping the bowl as necessary, until well combined.", "Add in eggs, vanilla, and molasses and combine on medium for about 30 seconds until fully combined. Add flour mixture and mix on low until combined. Add oats and 3/4 cup chocolate chips and mix on low for a few seconds until combined. Take the bowl off of the mixer and use a spatula to stir just until the oats and chocolate chips are evenly distributed.", "Transfer to a covered container. Chill 12 minutes.", "Preheat the oven to 350 degrees with two racks spaced out.", "Line two baking sheets with parchment paper. Remove the bowl with the dough from the refrigerator. Scoop cookies into 2-tablespoon drops and roll quickly into balls (try to make the scoops as even as possible to ensure uniform cookies). Place balls on baking sheets with several inches between each cookie. Flatten the tops of each ball lightly with your hand and lightly press in the additional 1/4 cup chocolate chips to the tops where needed. Sprinkle with sea salt.", "Bake for 5 minutes, then remove and rotate sheets and put them back in on the opposite racks. Bake about 5 more minutes until they just set (we like pulling them out just slightly underbaked, which makes them chewy when cooled). Cool several minutes and then transfer to wire rack to fully cool. Store at room temperature in a cookie tin for up to 3 days, or freeze for up to 3 months."],
-//   rating: 5,
+//   recipe_name: "Chocolate Cake with Ganache Glaze",
+//   descrip: "This decadent chocolate cake recipe features a chocolate buttercream filling and a shiny dark chocolate ganache. It’s chocolate dessert perfection!",
+//   directions: ["For the cake:", "3 cups (375g) unbleached all-purpose flour", "2⁄3 cup (60g) unsweetened cocoa powder", "2 teaspoons baking soda", "3⁄4 teaspoon salt", "2 cups (475ml) unsweetened nondairy milk, homemade or store-bought", "2 tablespoons apple cider vinegar", "1 3⁄4 cups (350g) sugar", "2⁄3 cup (160ml) melted coconut oil", "2 teaspoons vanilla extract" ,"For the filling" ,"1 cup (245g) pumpkin puree", "1⁄4 cup (20g) unsweetened cocoa powder", "1⁄4 cup (60ml) maple syrup", "3 tablespoons almond butter or cashew butter", "For the ganache:", "6 ounces (170g) bittersweet chocolate, finely chopped", "1⁄2 cup (120ml) coconut milk", "2 tablespoons maple syrup"],
+//   rating: 4,
 //   gluten_free: 0,
 //   vegetarian: 0,
 //   vegan: 0,
-//   ingredients: ["1 1/4 cup all-purpose flour", "1/2 teaspoon baking soda", "1/2 teaspoon baking powder", "1 teaspoon ground cinnamon", "1/2 teaspoon kosher salt", "10 tablespoons salted butter, at room temperature*", "1/3 cup brown sugar, packed", "1/3 cup granulated sugar", "2 eggs", "1 tablespoon vanilla extract", "2 tablespoons molasses", "2 cups rolled oats", "1 cup dark chocolate chips", "Flaked sea salt, for topping"],
-//   make_time: 40,
-//   servings: 24
+//   ingredients: ["Preheat the oven to 350°F (175°C). Coat two 8- or 9-inch (20 or 23cm) round springform pans with melted coconut oil.", "To make the cake, put the flour, cocoa, baking soda, and salt in a large bowl and whisk to combine.", "In a medium bowl, vigorously whisk together the nondairy milk and vinegar until frothy. Whisk in the sugar, oil, and vanilla. Add about one-third of the mixture to the flour mixture and stir with a spatula or whisk, or use an electric mixer on the lowest setting. Repeat, adding the remaining liquid in two more additions, mixing just until incorporated after the final addition. Pour the batter into the prepared pans.", "Bake for about 25 minutes, until a toothpick inserted into the center comes out clean. Remove from the oven but leave the cakes in their pans and let cool completely.", "To make the filling, process all the ingredients in a food processor.", "To make the ganache, put the chocolate in a medium heatproof bowl. Combine the coconut milk and maple syrup in a small saucepan over medium-low heat. Cook, stirring occasionally, until just simmering. Pour over the chocolate and stir until melted. Let cool to room temperature.", "To assemble the cake, remove the layers from their pans. Place one, top side up, on a serving platter and gently shave off the rounded top with a sharp knife. Spread all of the filling over the top. Place the other cake layer atop the filling. Pour the ganache evenly over the top and let it drizzle down the sides. Refrigerate for at least 1 hour before serving.", "Leftovers will keep in a covered container in the fridge for up to 4 days."],
+//   make_time: 70,
+//   servings: 14
 // }
 // ref.push(recipe);
 //
-//
 // recipe = {
-//   recipe_name: "Coconut Shrimp Curry",
-//   descrip: "This easy shrimp curry tastes better than a restaurant in under 30 minutes! It’s a Thai red curry flavored with coconut milk and curry paste.",
-//   directions: ["Start the jasmine rice (or basmati rice).", "Mince the onion. Mince the garlic. Cut the pepper into thin strips.", "In a large skillet, pot or Dutch oven, heat the oil over medium heat. Add the onion and saute for 5 minutes, until translucent. Add the garlic & red pepper and saute for 1 minute. Stir in the curry paste and saute for 1 minute.", "Add coconut milk, fish sauce, turmeric, lime zest, water, and kosher salt and bring to a simmer. Once simmering, add the shrimp and cook about 4 to 5 minutes until the shrimp is tender and opaque, depending on the size of the shrimp. Stir in 5 large leaves basil.", "To serve, spoon the shrimp and sauce over rice. Garnish with additional chopped basil and lime wedges."],
+//   recipe_name: "Chewy Cookie Cake Recipe",
+//   descrip: "This chewy chocolate chip cookie cake recipe is easy to make and a serious crowd pleaser: the perfect treat for book clubs and pitch ins!",
+//   directions: ["Preheat the oven to 325 degrees Farenheit. Grease a 9-inch pie pan.", "Combine the flour, baking soda, and kosher salt in a bowl. Set aside.", "In the bowl of a stand mixer (or with an electric mixer), cream together the butter, granulated sugar, and brown sugar with paddle attachment for 2 to 3 minutes until fluffy. Add the vanilla, egg, milk, and orange zest and beat for 1 minute.", "With the mixer on low, add the flour mixture until just combined. Remove the bowl from the mixer and fold in 1/2 cup of the chocolate chips. Use a spatula to press down the dough into the pie pan. Top with the additional 1/4 cup chocolate chips.", "Bake 25 to 27 minutes, until the edges are starting to brown and the center has fully firmed up. Cool several hours at room temperature before serving (the cookie cake is much too gooey to cut when it’s first baked, so the longer you can cool it the better!)."],
 //   rating: 4,
-//   gluten_free: 1,
+//   gluten_free: 0,
 //   vegetarian: 0,
 //   vegan: 0,
-//   ingredients: ["Jasmine rice (or basmati rice), for serving", "1 yellow onion", "2 garlic cloves", "1 red bell pepper", "2 tablespoons olive oil or coconut oil", "3 tablespoons Thai red curry paste", "15-ounce can full fat coconut milk", "1 teaspoon fish sauce", "1/4 teaspoon ground turmeric", "Zest of 1 lime (plus lime wedges to garnish)", "1/2 cup water", "1 teaspoon kosher salt", "1 pound large shrimp, shell on or tail on (wild caught if possible)", "5 leaves fresh basil or Thai basil, plus more for garnish"],
-//   make_time: 25,
-//   servings: 4
+//   ingredients: ["1 1/2 cups all purpose flour", "1/2 teaspoon baking soda", "1/2 teaspoon kosher salt", "8 tablespoons unsalted butter, room temperature", "1/4 cup granulated sugar", "1/2 cup brown sugar, packed", "1 tablespoon vanilla extract", "1 tablespoon milk", "1 large egg, room temperature", "1/2 teaspoon orange zest", "3/4 cup best quality dark chocolate chips"],
+//   make_time: 40,
+//   servings: 12
 // }
 // ref.push(recipe);
