@@ -1,0 +1,28 @@
+.jumbotron {
+  background-color: #ff7366;
+}
+
+#user_search {
+    background-color: #d1cfcf;
+}
+
+.search-group {
+  margin-left: 20px;
+}
+
+.container {
+  margin-left: 20px;
+}
+
+#descrip {
+  margin-left: 20px;
+}
+
+.recipe_info {
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  border-style: dotted;
+  text-align: center;
+}

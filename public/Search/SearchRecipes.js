@@ -61,8 +61,8 @@ function getSearch() {
   localStorage.setItem("Search", search);
 
 
-  // redirct the page to displaSearch page
-  window.location.href='displaySearch.html';
+  // redirct the page to displaySearch page
+  window.location.href = 'displaySearch.html';
 }
 
 function getAdvancedSearch() {
@@ -246,9 +246,13 @@ function findResults(type) {
     //console.log("Search");
     ref.on('value', gotDataSearch, errData);
   }
-  else {
+  else if (type == "advanced"){
     //console.log("Advanced");
     ref.on('value', gotDataAdvanced, errData);
+  }
+  else if (type == "currentRecipe") {
+    //console.log("Advanced");
+    ref.on('value', gotCurrentRecipe, errData);
   }
 }
 
@@ -267,7 +271,7 @@ function MinutesToHours(minutes) {
 }
 
 // function that will create recipe as a card to disply on display search
-function createCard(array) {
+function createCard(array, ids) {
   var card = "", count = 1;
   //console.log(array[0].descrip);
 
@@ -286,6 +290,7 @@ function createCard(array) {
     var time = MinutesToHours(array[i].make_time);
     card += '<p class="card-text">Make Time: '+time+'</p>';
     card += '</div>';
+    card += '<button type="submit" id="'+ ids[i] +'" onclick="seeRecipe(this.id)" class="btn btn-dark">See Recipe</button>';
     card += '</div>';
     card += '</div>';
 
@@ -315,39 +320,72 @@ function gotDataSearch(data) {
   console.log(keys);
   // array to hold found recipes
   var recipe_array = [];
+  // array to hold keys of found recipes
+  var ids_array = [], unique_id;
 
   // for loop that runs through keys in recipes
   for (var i = 0; i < keys.length; i++) {
     // declare variables
     var k = keys[i];
-    var recipe_name = recipes[k].recipe_name;
-    // make strings to lower case to make searching strings easier
-    var recipe_name_lower = recipe_name.toLowerCase();
-    var search = localStorage.getItem("Search").toLowerCase();
-    // if that checks if the user search is more than one word
-    if (search.split(' ').length >= 2) {
-      var split = search.split(' ');
-      var count = 0;
-      // for loop that runs through all search words to find a match in recipes
-      for (var j = 0; j < split.length; j++) {
-        var word = split[j].toString();
-        // if that checks if user search is in the recipe name
-        if (recipe_name_lower.includes(word)) {
-          count++;
+    if (recipes[k].private == 0) {
+      var recipe_name = recipes[k].recipe_name;
+      // make strings to lower case to make searching strings easier
+      var recipe_name_lower = recipe_name.toLowerCase();
+      var search = localStorage.getItem("Search").toLowerCase();
+      // if that checks if the user search is more than one word
+      if (search.split(' ').length >= 2) {
+        var split = search.split(' ');
+        var count = 0;
+        // for loop that runs through all search words to find a match in recipes
+        for (var j = 0; j < split.length; j++) {
+          var word = split[j].toString();
+          // if that checks if user search is in the recipe name
+          if (recipe_name_lower.includes(word)) {
+            count++;
+          }
+        }
+        //if that checks if there was 2 words to match recipe to display
+        if (count >= 2) {
+          // add recipe to array
+          recipe_array.push(recipes[k]);
+
+          // function to find the unique_id of the current key
+          var query = firebase.database().ref('recipes').orderByChild('recipe_name').equalTo(recipe_name);
+          query.once( 'value', data => {
+              data.forEach(userSnapshot => {
+                  let user = userSnapshot.val();
+                  let key = userSnapshot.key;
+                  // set the key to unique_id
+                  unique_id = key;
+              });
+          });
+
+          // add id to array
+          ids_array.push(unique_id);
+
         }
       }
-      //if that checks if there was 2 words to match recipe to display
-      if (count >= 2) {
-        // add recipe to array
-        recipe_array.push(recipes[k]);
-      }
-    }
-    // else search is only one word
-    else {
-      // if that checks if user search is in the recipe name
-      if (recipe_name_lower.includes(search)) {
-        // add recipe to array
-        recipe_array.push(recipes[k]);
+      // else search is only one word
+      else {
+        // if that checks if user search is in the recipe name
+        if (recipe_name_lower.includes(search)) {
+          // add recipe to array
+          recipe_array.push(recipes[k]);
+
+          // function to find the unique_id of the current key
+          var query = firebase.database().ref('recipes').orderByChild('recipe_name').equalTo(recipe_name);
+          query.once( 'value', data => {
+              data.forEach(userSnapshot => {
+                  let user = userSnapshot.val();
+                  let key = userSnapshot.key;
+                  // set the key to unique_id
+                  unique_id = key;
+              });
+          });
+
+          // add id to array
+          ids_array.push(unique_id);
+        }
       }
     }
   }
@@ -359,7 +397,7 @@ function gotDataSearch(data) {
   }
   else {
     // call function to create a card with recipe found
-    createCard(recipe_array);
+    createCard(recipe_array, ids_array);
   }
 }
 
@@ -372,141 +410,165 @@ function gotDataAdvanced(data) {
   //console.log(keys);
   // array to hold found recipes
   var recipe_array = [];
+  // array to hold keys of found recipes
+  var ids_array = [];
 
   console.log(recipes);
+  var unique_id;
+
+
   // for loop that runs through keys in recipes
   for (var i = 0; i < keys.length; i++) {
     // declare variables
     var k = keys[i];
-    var recipe_name = recipes[k].recipe_name;
-    var found = false;
-    // make strings to lower case to make searching strings easier
-    var recipe_name_lower = recipe_name.toLowerCase();
-    var keyword = localStorage.getItem("Keyword").toLowerCase();
-    // if that checks if the user keyword is more than one word
-    if (keyword.split(' ').length >= 2) {
-      var split = keyword.split(' ');
-      var count = 0;
-      // for loop that runs through all search words to find a match in recipes
-      for (var j = 0; j < split.length; j++) {
-        var word = split[j].toString();
-        // if that checks if user search is in the recipe name
-        if (recipe_name_lower.includes(word)) {
-          count++;
-        }
-      }
-      //if that checks if there was 2 words to match recipe to display
-      if (count >= 2) {
-        // set keyowrd found to true
-        found = true;
-      }
-    }
-    // else search is only one word
-    else {
-      // if that checks if user search is in the recipe name
-      if (recipe_name_lower.includes(keyword)) {
-        // set keyowrd found to true
-        found = true;
-      }
-    }
 
-    // if there was a match with the keyword --> continue on with other requirements in search
-    // otherwise, test other recipes
-
-    if (found == true) {
-      console.log(localStorage.getItem("Requirements"));
-      var requirements = localStorage.getItem("Requirements");
-
-
-      // check if there was a rating requirement
-      if (requirements[0] == 1) {
-        //console.log("Rating");
-        var rating = recipes[k].rating;
-        var user_rating = localStorage.getItem("Rating");
-        // check to see if the user rating does not match the current recipes rating
-        if (rating != user_rating) {
-          // set found to false showing this recipe is not a match
-          found = false;
-        }
-      }
-
-      // check if there is a gluten free requirement
-      if (found == true && requirements[2] == 1) {
-        var gf = recipes[k].glutenFree;
-        var user_gf = localStorage.getItem("glutenFree");
-        // check to see if the recipe's gluten free matches the user
-        if (gf != user_gf) {
-          // if recipe is not gluten free --> found is false --> recipe does not match
-          found = false;
-        }
-      }
-
-      // check if there is a vegetarian requirement
-      if (found == true && requirements[4] == 1) {
-        var veg = recipes[k].vegetarian;
-        var user_veg = localStorage.getItem("Vegetarian");
-        // check to see if the recipe's vegetarian matches the user
-        if (veg != user_veg) {
-          // if recipe is not vegetarian --> found is false --> recipe does not match
-          found = false;
-        }
-      }
-
-      // check if there is a vegan requirement
-      if (found == true && requirements[6] == 1) {
-        var vegan = recipes[k].vegan;
-        var user_vegan = localStorage.getItem("Vegan");
-        // check to see if the recipe's vegan matches the user
-        if (vegan != user_vegan) {
-          // if recipe is not vegan --> found is false --> recipe does not match
-          found = false;
-        }
-      }
-
-      // check if there is a vegan requirement
-      if (found == true && requirements[8] == 1) {
-        var ingred = recipes[k].ingredients;
-        var user_ingred = JSON.parse(localStorage.getItem("Ingredient"));
-        // set found to false
-        found = false;
-        // var to have count of number of user ingredients
-        var count = user_ingred.length, counter = 0;
-        // check to see if any of the recipe's ingredients matches the user
-        for (var u = 0; u < user_ingred.length; u++) {
-          for (var a = 0; a < ingred.length; a++) {
-            console.log("Recipe: " + ingred[a]);
-            console.log("User: " + user_ingred[u]);
-            if (ingred[a].includes(user_ingred[u])) {
-              counter++;
-              console.log("Counter: " + counter);
-            }
+    // if that chkes if the recipe is private or not
+    if (recipes[k].private == 0) {
+      var recipe_name = recipes[k].recipe_name;
+      var found = false;
+      // make strings to lower case to make searching strings easier
+      var recipe_name_lower = recipe_name.toLowerCase();
+      var keyword = localStorage.getItem("Keyword").toLowerCase();
+      // if that checks if the user keyword is more than one word
+      if (keyword.split(' ').length >= 2) {
+        var split = keyword.split(' ');
+        var count = 0;
+        // for loop that runs through all search words to find a match in recipes
+        for (var j = 0; j < split.length; j++) {
+          var word = split[j].toString();
+          // if that checks if user search is in the recipe name
+          if (recipe_name_lower.includes(word)) {
+            count++;
           }
         }
-
-        // check to see if the current recipe has all the ingredients that the user selected
-        if (counter == count) {
+        //if that checks if there was 2 words to match recipe to display
+        if (count >= 2) {
+          // set keyowrd found to true
+          found = true;
+        }
+      }
+      // else search is only one word
+      else {
+        // if that checks if user search is in the recipe name
+        if (recipe_name_lower.includes(keyword)) {
+          // set keyowrd found to true
           found = true;
         }
       }
 
-      // check if there is a vegetarian requirement
-      if (found == true && requirements[10] == 1) {
-        var time = recipes[k].vegetarian;
-        var user_time = localStorage.getItem("Vegetarian");
-        // check to see if the recipe's gluten free matches the user
-        if (time != user_time) {
-          // if recipe is not gluten free --> found is false --> recipe does not match
-          found = false;
-        }
-      }
+      // if there was a match with the keyword --> continue on with other requirements in search
+      // otherwise, test other recipes
 
-      // check to see if the current recipe matches all requirements
       if (found == true) {
-        // add recipe to array
-        recipe_array.push(recipes[k]);
+        //console.log(localStorage.getItem("Requirements"));
+        var requirements = localStorage.getItem("Requirements");
+
+
+        // check if there was a rating requirement
+        if (requirements[0] == 1) {
+          //console.log("Rating");
+          var rating = recipes[k].rating;
+          var user_rating = localStorage.getItem("Rating");
+          // check to see if the user rating does not match the current recipes rating
+          if (rating != user_rating) {
+            // set found to false showing this recipe is not a match
+            found = false;
+          }
+        }
+
+        // check if there is a gluten free requirement
+        if (found == true && requirements[2] == 1) {
+          var gf = recipes[k].glutenFree;
+          var user_gf = localStorage.getItem("glutenFree");
+          // check to see if the recipe's gluten free matches the user
+          if (gf != user_gf) {
+            // if recipe is not gluten free --> found is false --> recipe does not match
+            found = false;
+          }
+        }
+
+        // check if there is a vegetarian requirement
+        if (found == true && requirements[4] == 1) {
+          var veg = recipes[k].vegetarian;
+          var user_veg = localStorage.getItem("Vegetarian");
+          // check to see if the recipe's vegetarian matches the user
+          if (veg != user_veg) {
+            // if recipe is not vegetarian --> found is false --> recipe does not match
+            found = false;
+          }
+        }
+
+        // check if there is a vegan requirement
+        if (found == true && requirements[6] == 1) {
+          var vegan = recipes[k].vegan;
+          var user_vegan = localStorage.getItem("Vegan");
+          // check to see if the recipe's vegan matches the user
+          if (vegan != user_vegan) {
+            // if recipe is not vegan --> found is false --> recipe does not match
+            found = false;
+          }
+        }
+
+        // check if there is a vegan requirement
+        if (found == true && requirements[8] == 1) {
+          var ingred = recipes[k].ingredients;
+          var user_ingred = JSON.parse(localStorage.getItem("Ingredient"));
+          // set found to false
+          found = false;
+          // var to have count of number of user ingredients
+          var count = user_ingred.length, counter = 0;
+          // check to see if any of the recipe's ingredients matches the user
+          for (var u = 0; u < user_ingred.length; u++) {
+            for (var a = 0; a < ingred.length; a++) {
+              console.log("Recipe: " + ingred[a]);
+              console.log("User: " + user_ingred[u]);
+              if (ingred[a].includes(user_ingred[u])) {
+                counter++;
+                console.log("Counter: " + counter);
+              }
+            }
+          }
+
+          // check to see if the current recipe has all the ingredients that the user selected
+          if (counter == count) {
+            found = true;
+          }
+        }
+
+        // check if there is a vegetarian requirement
+        if (found == true && requirements[10] == 1) {
+          var time = recipes[k].vegetarian;
+          var user_time = localStorage.getItem("Vegetarian");
+          // check to see if the recipe's gluten free matches the user
+          if (time != user_time) {
+            // if recipe is not gluten free --> found is false --> recipe does not match
+            found = false;
+          }
+        }
+
+        // check to see if the current recipe matches all requirements
+        if (found == true) {
+          // add recipe to array
+          recipe_array.push(recipes[k]);
+
+          // function to find the unique_id of the current key
+          var query = firebase.database().ref('recipes').orderByChild('recipe_name').equalTo(recipe_name);
+          query.once( 'value', data => {
+              data.forEach(userSnapshot => {
+                  let user = userSnapshot.val();
+                  let key = userSnapshot.key;
+                  // set the key to unique_id
+                  unique_id = key;
+              });
+          });
+
+        ids_array.push(unique_id);
+        }
       }
     }
   }
+
+  console.log(ids_array);
 
   // if that checks if there was any found recipes
   // if there was a hit --> create cards in html with recipes
@@ -515,7 +577,7 @@ function gotDataAdvanced(data) {
   }
   else {
     // call function to create a card with recipe found
-    createCard(recipe_array);
+    createCard(recipe_array, ids_array);
   }
 }
 
@@ -523,4 +585,98 @@ function gotDataAdvanced(data) {
 function errData() {
   console.log("Error!");
   console.log(err);
+}
+
+// function that finds current recipe in
+function gotCurrentRecipe(data) {
+  console.log(localStorage.getItem("ID"));
+
+  // set recipes to the data in database
+  var recipes = data.val();
+  // get data in array for all keys in recipes
+  var keys = Object.keys(recipes);
+
+
+  console.log(recipes);
+  var recipe = localStorage.getItem("ID"), found = false, i = 0;
+
+  while (found == false) {
+    // declare variables
+    var k = keys[i];
+
+    if (k == recipe) {
+      console.log("true");
+      found = true;
+      recipe = recipes[k];
+    }
+    else {
+      i++;
+    }
+  }
+
+  console.log(recipe);
+
+  // put recipe name in html page
+  document.getElementById("recipe_name").innerHTML = recipe.recipe_name;
+
+  // put recipe description in html page
+  document.getElementById("descrip").innerHTML = recipe.descrip;
+
+  // put recipe rating in html page
+  document.getElementById("rating").innerHTML = recipe.rating;
+
+  // put recipe time in html page
+  document.getElementById("time").innerHTML = MinutesToHours(recipe.make_time);
+
+  // put recipe servings size in html page
+  document.getElementById("servings").innerHTML = recipe.servings;
+
+  // put if recipe is vegetarian
+  if (recipe.vegetarian) {
+    document.getElementById("vegetarian").innerHTML = "Yes";
+  }
+  else {
+    document.getElementById("vegetarian").innerHTML = "No";
+  }
+
+  // put if recipe is vegan
+  if (recipe.vegan) {
+    document.getElementById("vegan").innerHTML = "Yes";
+  }
+  else {
+    document.getElementById("vegan").innerHTML = "No";
+  }
+
+  // put if recipe is gluten free
+  if (recipe.gluten_free) {
+    document.getElementById("gluten_free").innerHTML = "Yes";
+  }
+  else {
+    document.getElementById("gluten_free").innerHTML = "No";
+  }
+
+  // put recipe ingredients in html page
+  var list = "", r = recipe.ingredients;
+  for (var i = 0; i < r.length; i++) {
+    list += "<li>" + r[i] +"</li>";
+  }
+  document.getElementById("ingredients").innerHTML = list;
+
+  // put recipe directions in html page
+  var list = "", r = recipe.directions;
+  for (var i = 0; i < r.length; i++) {
+    list += "<li>" + r[i] +"</li>";
+  }
+  document.getElementById("directions").innerHTML = list;
+
+
+}
+
+function seeRecipe(id) {
+
+  // put id into localStorage
+  localStorage.setItem("ID", id);
+
+  // redirct the page to seeRecipe page
+  window.location.href='seeRecipe.html';
 }
