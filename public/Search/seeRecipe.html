@@ -26,6 +26,7 @@
     window.onload = function() {
       // call find results to get information for current recipe
       findResults("currentRecipe");
+
     }
   </script>
   <!-- navigation bar -->
@@ -66,7 +67,14 @@
     </div>
   </div>
 
-  <div class="container recipe_info">
+
+  <div>
+    <img id="picture" src="" alt="recipe photo" class="rounded mx-auto d-block">
+  </div>
+
+  <br>
+
+  <div class="container recipe_info" style="background-color:#d1cfcf">
     <div class="row">
       <div class="col">
         <h5>Rating</h5>
@@ -116,7 +124,9 @@
 
   <br>
 
-
+  <form id="saveButton" style="margin-bottom:50px; margin-right:20px">
+    <button type="submit" class="btn btn-dark float-right">Save Recipe</button>
+  </form>
 
 
   <script src="../index.js"></script>

@@ -271,7 +271,7 @@ function MinutesToHours(minutes) {
 }
 
 // function that will create recipe as a card to disply on display search
-function createCard(array, ids) {
+function createCard(array, ids, pics) {
   var card = "", count = 1;
   //console.log(array[0].descrip);
 
@@ -283,6 +283,8 @@ function createCard(array, ids) {
     }
     card += '<div class="col-sm-6">';
     card += '<div class="card h-100">';
+    // console.log(pics[i]);
+    // card += '<img src="'+ pics[i] +'" class="card-img-top" alt="'+ array[i].recipe_name +' Picture">';
     card += '<div class="card-body" style="word-wrap: break-word;">';
     card += '<h5 class="card-title">'+array[i].recipe_name+'</h5>';
     card += '<p class="card-text">'+array[i].descrip+'</p>';
@@ -306,7 +308,7 @@ function createCard(array, ids) {
 }
 
 function noRecipe() {
-  document.getElementById("results").innerHTML += "<p>Sorry, there are no recipes based on your search.</p>";
+  document.getElementById("results").innerHTML += '<h4 style="text-align:center">Sorry, there are no recipes based on your search.</h4>';
 }
 
 // function to get the data from the database
@@ -320,8 +322,8 @@ function gotDataSearch(data) {
   console.log(keys);
   // array to hold found recipes
   var recipe_array = [];
-  // array to hold keys of found recipes
-  var ids_array = [], unique_id;
+  // array to hold keys of found recipes, array to hold image's urls
+  var ids_array = [], pic_array = [],unique_id;
 
   // for loop that runs through keys in recipes
   for (var i = 0; i < keys.length; i++) {
@@ -349,6 +351,7 @@ function gotDataSearch(data) {
           // add recipe to array
           recipe_array.push(recipes[k]);
 
+
           // function to find the unique_id of the current key
           var query = firebase.database().ref('recipes').orderByChild('recipe_name').equalTo(recipe_name);
           query.once( 'value', data => {
@@ -371,6 +374,7 @@ function gotDataSearch(data) {
         if (recipe_name_lower.includes(search)) {
           // add recipe to array
           recipe_array.push(recipes[k]);
+
 
           // function to find the unique_id of the current key
           var query = firebase.database().ref('recipes').orderByChild('recipe_name').equalTo(recipe_name);
@@ -396,6 +400,7 @@ function gotDataSearch(data) {
     noRecipe();
   }
   else {
+
     // call function to create a card with recipe found
     createCard(recipe_array, ids_array);
   }
@@ -520,11 +525,8 @@ function gotDataAdvanced(data) {
           // check to see if any of the recipe's ingredients matches the user
           for (var u = 0; u < user_ingred.length; u++) {
             for (var a = 0; a < ingred.length; a++) {
-              console.log("Recipe: " + ingred[a]);
-              console.log("User: " + user_ingred[u]);
               if (ingred[a].includes(user_ingred[u])) {
                 counter++;
-                console.log("Counter: " + counter);
               }
             }
           }
@@ -669,14 +671,34 @@ function gotCurrentRecipe(data) {
   }
   document.getElementById("directions").innerHTML = list;
 
+  // put recipe image in html page
+  getImageUrl(recipe.image);
 
 }
 
+// function that takes recipe id and stores it and calls seeRecipe page
 function seeRecipe(id) {
-
   // put id into localStorage
   localStorage.setItem("ID", id);
 
   // redirct the page to seeRecipe page
   window.location.href='seeRecipe.html';
+}
+
+
+function getImageUrl(pic) {
+  var storage = firebase.storage();
+  var storageRef = storage.ref();
+  var image_url;
+  var word = "images/" + pic;
+  var imageRef = storageRef.child(word);
+    imageRef.getDownloadURL().then(function(url) {
+      // Once we have the download URL, we set it to our img element
+      document.getElementById('picture').src = url;
+      //console.log(image_url);
+    })
+
+    //console.log(image_url);
+  //document.getElementById('picture').src = pic;
+
 }
