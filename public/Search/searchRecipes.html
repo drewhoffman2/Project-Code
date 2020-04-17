@@ -86,16 +86,16 @@
   <form class="form-inline">
     <div class="form-group col-lg-6 justify-content-center">
       <div class="input-group">
-         <input id="search" class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="search" placeholder="search" required>
+         <input id="search" class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="text" placeholder="search" required>
          <span class="input-group-append">
-             <button id="searchBtn" class="btn rounded-pill border-0 ml-n5" onClick="getSearch()" type="button">
+             <button id="searchBtn" class="btn rounded-pill border-0 ml-n5" onClick="getSearch()" type="submit">
                    <i class="fa fa-search"></i>
              </button>
          </span>
      </div>
     </div>
     <div class="form-group col-lg-6 justify-content-center">
-      <p><a class="AdvancedSearchButton btn btn-primary" data-toggle="collapse" data-target="#AdvancedSearchCollapse" role="button" aria-expanded="false" aria-controls="AdvancedSearchCollapse" style="background-color: #d1cfcf; border-color:black; color:black;">Advanced Search</a></p>
+      <p><a class="AdvancedSearchButton btn btn-primary" data-toggle="collapse" data-target="#AdvancedSearchCollapse" role="button" aria-expanded="false" aria-controls="AdvancedSearchCollapse" onclick="clickAdvance()" style="background-color: #d1cfcf; border-color:black; color:black;">Advanced Search</a></p>
     </div>
   </form>
 
