@@ -1,3 +1,40 @@
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
+  authDomain: "finish-my-dish.firebaseapp.com",
+  databaseURL: "https://finish-my-dish.firebaseio.com",
+  projectId: "finish-my-dish",
+  storageBucket: "finish-my-dish.appspot.com",
+  messagingSenderId: "128425488934",
+  appId: "1:128425488934:web:fdb5d13d67bbb85da92ce7",
+  measurementId: "G-CGCBSG2CG1"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+console.log(firebase);
+var database = firebase.database();
+
+var ref = database.ref('friends');//create friends on firebase
+//me adding below this
+ref.on('value', gotData, errData);
+
+function gotData(data)
+{
+console.log(data.val()); //view in console "Object"
+var scores = data.val();
+var keys = Object.keys(scores);
+console.log(keys); //array of keys to the data
+for(var i = 0; i < ke)
+}
+
+function errData(err)
+{
+	console.log('Error!');
+	console.log(err);
+}
+//original code below this
+//Vanessa only had what was above this in her code
 function removeDiv(divId) {
    $("#"+divId).remove();
 }
@@ -19,7 +56,7 @@ function deleteCard(cardID){
   cardID.remove();
 }
 
-//Based off of Vanessa's remove recipe 
+//Based off of Vanessa's remove recipe
 var numIngredients = 0;
 
 // function to add another text box for ingredient items
