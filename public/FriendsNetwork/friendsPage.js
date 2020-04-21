@@ -1,22 +1,37 @@
-// Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
-  authDomain: "finish-my-dish.firebaseapp.com",
-  databaseURL: "https://finish-my-dish.firebaseio.com",
-  projectId: "finish-my-dish",
-  storageBucket: "finish-my-dish.appspot.com",
-  messagingSenderId: "128425488934",
-  appId: "1:128425488934:web:fdb5d13d67bbb85da92ce7",
-  measurementId: "G-CGCBSG2CG1"
-};
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-console.log(firebase);
-var database = firebase.database();
+//firebase.initializeApp(firebaseConfig);
+//firebase.analytics();
+//console.log(firebase);
+//const database = firebase.database();
 
-var ref = database.ref('friends');//create friends on firebase
+var ref = database.ref('users');//create friends on firebase
+
+
+function Display2(id)
+{
+  document.getElementById("genericRecipe").style.display = "block";
+}
+
+function Close2(id)
+{
+  document.getElementById("genericRecipe").style.display = "none";
+}
+
+window.onclick = function(event)
+{
+  if (event.target == document.getElementById("foodRecipe"))
+  {
+    document.getElementById("foodRecipe").style.display = "none";
+  }
+  if (event.target == document.getElementById("genericRecipe"))
+  {
+    document.getElementById("genericRecipe").style.display = "none";
+  }
+}
+
+
 //me adding below this
+/*
 ref.on('value', gotData, errData);
 
 function gotData(data)
@@ -33,8 +48,12 @@ function errData(err)
 	console.log('Error!');
 	console.log(err);
 }
+*/
+
+
 //original code below this
 //Vanessa only had what was above this in her code
+/*
 function removeDiv(divId) {
    $("#"+divId).remove();
 }
@@ -87,3 +106,4 @@ function removeIngredient() {
     document.getElementById('RemoveButton').disabled = true;
   }
 }
+*/
