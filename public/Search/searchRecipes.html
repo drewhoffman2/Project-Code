@@ -86,9 +86,9 @@
   <form class="form-inline">
     <div class="form-group col-lg-6 justify-content-center">
       <div class="input-group">
-         <input id="search" class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="text" placeholder="search" required>
+         <input id="search" class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="search" placeholder="search" required>
          <span class="input-group-append">
-             <button id="searchBtn" class="btn rounded-pill border-0 ml-n5" onClick="getSearch()" type="submit">
+             <button id="searchBtn" class="btn rounded-pill border-0 ml-n5" onClick="getSearch()" type="button">
                    <i class="fa fa-search"></i>
              </button>
          </span>
@@ -99,12 +99,14 @@
     </div>
   </form>
 
+  <br>
+
   <!-- form for advanced search button -->
   <div class="SearchAdvancedForm collapse" id="AdvancedSearchCollapse">
     <form  style="margin: auto; width:90%" action="displaySearch.html">
       <div class="form-group">
         <label for="Keyword" style="margin-top: 10px;">Keyword</label>
-        <input name ="keyword" id="keyword" type="text" class="form-control" placeholder="Ex: Pizza" required>
+        <input name ="keyword" id="keyword" type="text" class="form-control" placeholder="Ex: Pizza">
       </div>
       <!-- star rating -->
       <div class="form-group StarRating">

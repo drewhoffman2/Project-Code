@@ -32,6 +32,12 @@ function removeIngredient() {
 function clickAdvance() {
   document.getElementById("keyword").required = true;
 
+  setTimeout(function() {
+    var advancedForm = document.getElementById("keyword");
+    //advancedForm.scrollIntoView();
+    console.log("Hello");
+
+    location.href = "#keyword"; }, 355);
 }
 
 /*
@@ -55,14 +61,17 @@ function capitalize(word) {
 function getSearch() {
   // clear localStorage to reset search info
   localStorage.clear();
-
   var search = document.getElementById("search").value;
 
   // check if the user typed in something
   if (search != "") {
+    console.log(search);
     localStorage.setItem("Search", search);
     // redirct the page to displaySearch page
     window.location.href = 'displaySearch.html';
+  }
+  else {
+    alert("Please fill out search field");
   }
 }
 
@@ -72,7 +81,7 @@ function getAdvancedSearch() {
 
   var keyword = document.getElementById("keyword").value;
 
-  if (keyword != "") {
+  if (keyword !== "") {
     localStorage.setItem("Keyword", keyword);
 
     var rating = document.getElementsByName("rating_input");
@@ -259,6 +268,14 @@ function findResults(type) {
     //console.log("Advanced");
     ref.on('value', gotCurrentRecipe, errData);
   }
+  else if (type == "users") {
+    var ref = database.ref('users');
+    ref.on('value', getCreator, errData);
+  }
+  else if (type == "currentUser") {
+    var ref = database.ref('users');
+    ref.on('value', gotUserInfo, errData);
+  }
 }
 
 // convert minutes to hours as string
@@ -334,6 +351,16 @@ function gotDataSearch(data) {
   for (var i = 0; i < keys.length; i++) {
     // declare variables
     var k = keys[i];
+
+    // check if the recipe is made by the current user
+    var user_recipe = JSON.parse(localStorage.getItem('CurrentUserData'));
+    for (var a = 0; a < user_recipe.recipes.length; a++) {
+      //console.log(user_recipe.recipes[a]);
+      if (user_recipe.recipes[a] == k) {
+        createdByUser = true;
+      }
+    }
+
     if (recipes[k].private == 0) {
       var recipe_name = recipes[k].recipe_name;
       // make strings to lower case to make searching strings easier
@@ -423,8 +450,8 @@ function gotDataAdvanced(data) {
   // array to hold keys of found recipes
   var ids_array = [];
 
-  console.log(recipes);
-  var unique_id;
+  console.log(keys);
+  var unique_id, createdByUser = false;
 
 
   // for loop that runs through keys in recipes
@@ -432,8 +459,18 @@ function gotDataAdvanced(data) {
     // declare variables
     var k = keys[i];
 
+    // check if the recipe is made by the current user
+    var user_recipe = JSON.parse(localStorage.getItem('CurrentUserData'));
+    for (var a = 0; a < user_recipe.recipes.length; a++) {
+      //console.log(user_recipe.recipes[a]);
+      if (user_recipe.recipes[a] == k) {
+        createdByUser = true;
+      }
+    }
+
+
     // if that chkes if the recipe is private or not
-    if (recipes[k].private == 0) {
+    if (recipes[k].private == 0 && createdByUser == false) {
       var recipe_name = recipes[k].recipe_name;
       var found = false;
       // make strings to lower case to make searching strings easier
@@ -576,7 +613,7 @@ function gotDataAdvanced(data) {
     }
   }
 
-  console.log(ids_array);
+  //console.log(ids_array);
 
   // if that checks if there was any found recipes
   // if there was a hit --> create cards in html with recipes
@@ -597,7 +634,7 @@ function errData() {
 
 // function that finds current recipe in
 function gotCurrentRecipe(data) {
-  console.log(localStorage.getItem("ID"));
+  // console.log(localStorage.getItem("ID"));
 
   // set recipes to the data in database
   var recipes = data.val();
@@ -606,14 +643,14 @@ function gotCurrentRecipe(data) {
 
 
   console.log(recipes);
-  var recipe = localStorage.getItem("ID"), found = false, i = 0;
+  var recipe = localStorage.getItem("ID"), found = false, i = 0, k;
 
   while (found == false) {
     // declare variables
-    var k = keys[i];
+    k = keys[i];
 
     if (k == recipe) {
-      console.log("true");
+      //console.log("true");
       found = true;
       recipe = recipes[k];
     }
@@ -626,6 +663,15 @@ function gotCurrentRecipe(data) {
 
   // put recipe name in html page
   document.getElementById("recipe_name").innerHTML = recipe.recipe_name;
+
+  // put recipe creator name in html page
+  localStorage.setItem("userID", recipe.created_by);
+  findResults("users");
+
+  // make buton clickable if user hasn't saved recipe already
+  findResults("currentUser");
+  // call function to see if button needs to be disabled
+  checkSaveButton(k);
 
   // put recipe description in html page
   document.getElementById("descrip").innerHTML = recipe.descrip;
@@ -701,10 +747,97 @@ function getImageUrl(pic) {
     imageRef.getDownloadURL().then(function(url) {
       // Once we have the download URL, we set it to our img element
       document.getElementById('picture').src = url;
-      //console.log(image_url);
     })
 
-    //console.log(image_url);
-  //document.getElementById('picture').src = pic;
+}
 
+// function to get the creator of the user
+function getCreator(data) {
+  // set recipes to the data in database
+  var users = data.val();
+  // get data in array for all keys in recipes
+  var keys = Object.keys(users);
+
+  var name = localStorage.getItem("userID"), found = false, count = 0;
+
+  while (found == false && count < keys.length) {
+    var k = keys[count];
+    //console.log(users[k]);
+    if (k == name) {
+      found = true;
+      name = users[k].first_name + " " + users[k].last_name;
+    }
+    else {
+      count++;
+    }
+  }
+
+  // check if the creator's name was found
+  if (found == true) {
+    document.getElementById("creator_name").innerHTML = "Created By: " + name;
+  }
+}
+
+
+// function to add the current recipe to saved recipes array of the logged in user
+function saveRecipe() {
+  //console.log(localStorage.getItem("CurrentUser"));
+  var name = localStorage.getItem("CurrentUser");
+  var recipeID = localStorage.getItem("ID");
+  var ref = database.ref('users/' + name + "/saved_recipes");
+
+  ref.push(recipeID);
+
+  // disable the button and change the innerHTML to saved
+  document.getElementById("saveButton").disabled = true;
+  document.getElementById("saveButton").innerHTML = "Saved!";
+
+}
+
+// function to find the user in database and save their
+function gotUserInfo(data) {
+  // set recipes to the data in database
+  var users = data.val();
+  // get data in array for all keys in recipes
+  var keys = Object.keys(users);
+  var currentUser = localStorage.getItem("CurrentUser"), found = false, i = 0;
+
+  while (found == false) {
+    // declare variables
+    var k = keys[i];
+
+    if (k == currentUser) {
+      found = true;
+      currentUser = users[k];
+      localStorage.setItem("SavedRecipes", JSON.stringify(currentUser.saved_recipes));
+    }
+    else {
+      i++;
+    }
+  }
+}
+
+// function to check if the save button needs to be disabled if user already has saved the current recipe
+function checkSaveButton(recipeID) {
+  console.log(recipeID);
+  // get the user's saved recipes from localStorage
+  var saved = JSON.parse(localStorage.getItem('SavedRecipes'));
+  console.log(saved);
+
+  var keys = Object.keys(saved);
+  var found = false, i = 0;
+
+  while (found == false && i < keys.length) {
+    // declare variables
+    var k = keys[i];
+    if (saved[k] == recipeID) {
+      found = true;
+      // disable the button and change the innerHTML to saved
+      document.getElementById("saveButton").disabled = true;
+      document.getElementById("saveButton").innerHTML = "Already Saved";
+    }
+    else {
+       i++;
+    }
+  }
 }
