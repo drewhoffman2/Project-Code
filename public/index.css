@@ -1,0 +1,45 @@
+body {
+  background-color: #ff7366;
+  font-family: 'Bellota Text';font-size: 22px;
+}
+
+.Jumbotron {
+  background: #d1cfcf;
+  padding-top: 100px;
+
+}
+
+#image1 {
+  background-image: url("images/orange-chicken.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#image2 {
+  background-image: url("images/tacos.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#image3 {
+  background-image: url("images/pancakes.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#image4 {
+  background-image: url("images/pizza.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#image5 {
+  background-image: url("images/dessert-main-image-molten-cake.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}

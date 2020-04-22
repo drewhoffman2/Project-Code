@@ -17,94 +17,56 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase.js"></script>
+  <link href="index.css" rel="stylesheet">
 </head>
 <body>
-  <!-- navigation bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href=".html">
-        <img class="rounded-circle" src="images/logoWgrayLetters.jpg" alt="Finish My Dish Logo" width="30" height="30">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="MyRecipes/MyRecipes.html">My Recipes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="FriendsNetwork/friendsPage.html">My Friends</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Search/searchRecipes.html">Search Recipes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="newRec/newRecipe.html">New Recipe</a>
-        </li>
-      </ul>
-      <div class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+
+  <!-- Bootstrap Jumbotron -->
+  <div class="jumbotron jumbotron-fluid Jumbotron">
+    <div class="container">
+      <h1 class="display-4" style="color:#ff7366">Welcome to Finish My Dish</h1>
+      <p class="lead">Are you looking for new things to make? With Finish My Dish you can find different dishes to create. Find recipes from other users or even share your own creations. Let us help you finish your dish.</p>
+    </div>
+  </div>
+
+
+    <div class="container">
+    <div class="row" style="height:300px">
+      <div class="col" id="image1">
+      </div>
+      <div class="col" id="image2">
       </div>
     </div>
-  </nav>
+    <div class="row" style="height:300px">
+      <div class="col" style="border: dashed; background-color:#d1cfcf">
+        <div class="col text-center">
+          <h2>New Member</h2>
+          <p>Join our community!</p>
+          <p>Sign up to create an account to learn and share recipes with others.</p>
+          <button type="submit" onclick=" location.href = 'homepage/signUp.html';" class="btn btn-dark" style="margin-top: 10px;margin-bottom: 10px;">Sign Up</button>
+        </div>
+      </div>
+      <div class="col" id="image3">
+      </div>
+      <div class="col" style="border: dashed; background-color:#d1cfcf">
+        <div class="col text-center">
+          <h2>Current Member</h2>
+          <p>Welcome Back!</p>
+          <p>Login to access your recipes and find new great dishes from our community of members.</p>
+          <button type="submit" onclick=" location.href = 'homepage/homepage.html';" class="btn btn-dark" style="margin-top: 10px;margin-bottom: 10px;">Login</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" id="image4" style="height:300px">
+      </div>
+      <div class="col" id="image5">
+      </div>
+    </div>
+  </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-	</body>
-</html>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <title>Login Page</title>
-
-	<link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon'/>
-    <!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="../resources/css/signin.css" rel="stylesheet">
-	<link href="../resources/css/my_style.css" rel="stylesheet">
-  </head>
-  <body class="center text-center">
-    <form class="form-signin">
-  	  <img class="rounded-circle" src="../resources/img/cu_boulder_logo.jpg" alt="" width="72" height="72">
-  	  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  	  <label for="inputEmail" class="sr-only">Email address</label>
-  	  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  	  <label for="inputPassword" class="sr-only">Password</label>
-  	  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-  	  <div class="checkbox mb-3">
-    		<label>
-    		  <input type="checkbox" value="remember-me"> Remember me |
-    		</label>
-  			<a href="">Forgot Password?</a>
-  	  </div>
-  	  <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
-  	  <a class="btn btn-lg btn-primary" href="register.html">Register</a>
-  	  <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
-  	</form>
-
+  <br>
 
     <script src="index.js"></script>
 

@@ -8,6 +8,7 @@ body {
     height: 100;
     width: 100%;
     background: #ff7366;
+    font-family: 'Bellota Text';font-size: 22px;
 }
 
 .SearchJumbotron {
