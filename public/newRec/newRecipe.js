@@ -62,7 +62,7 @@ var submitRecipe = function() {
       "ingredients" : ingredients,
       "maketime" : maketime,
       "private" : private,
-      "rating" : "0",
+      "rating" : 0,
       "recipe_name" : recipe_name,
       "servings" : servings,
       "vegan" : vegan,
