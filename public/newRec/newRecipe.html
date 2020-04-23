@@ -12,28 +12,50 @@
       font-family: 'Bellota Text';font-size: 22px;
   }
   </style>
-  <!--Function to dynamically add ingredient inputs -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase.js"></script>
+  <!--jQuery -->
+  <script
+  			  src="http://code.jquery.com/jquery-3.5.0.min.js"
+  			  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+  			  crossorigin="anonymous"></script>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link href="newRecipe.css" rel="stylesheet">
+
+
+
+  <!--Function to dynamically add ingredient and step inputs -->
   <script>
   var counter = 1;
   var limit = 10;
-  function addInput(divName){
+  function addIng(divName){
       if (counter == limit)  {
-            alert("You have reached the limit of adding " + counter + " ingredients");
+            alert("You have reached the limit of adding " + limit + " ingredients");
         }
      else {
           var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Ingredient " + (counter + 1) + " <br><input type='text' name='myInputs[]'>";
+          newdiv.innerHTML = "Ingredient " + (counter + 1) + " <br><input type='text' id='ing" + (counter + 1) + "'>";
           document.getElementById(divName).appendChild(newdiv);
           counter++;
      }
    }
+   var counter2 = 1;
+   var limit2 = 15;
+   function addInstruct(divName){
+       if (counter2 == limit2)  {
+             alert("You have reached the limit of adding " + limit2 + " steps");
+         }
+      else {
+           var newdiv = document.createElement('div');
+           newdiv.innerHTML = "Step " + (counter2 + 1) + " <br><input type='text' id='ins" + (counter2 + 1) + "'>";
+           document.getElementById(divName).appendChild(newdiv);
+           counter2++;
+      }
+    }
   </script>
 
   <title>New Recipe</title>
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <!-- link to external css page -->
-   <link href="newRecipe.css" rel="stylesheet">
 </head>
 
 
@@ -69,10 +91,12 @@
       </div>
     </div>
   </nav>
+  <!--link to .js file -->
+  <script src="newRecipe.js"></script>
 
 <br>
   <div class="container" id="inpFormCont">
-  <form method="POST" id="inpForm">
+  <form method="post" id="inpForm">
     <div class="form-group">
       <label for="recTitle">Title</label>
       <input type="text" class="form-control" id="recTitle" placeholder="Enter Title">
@@ -84,25 +108,54 @@
       <input type="file" alt="Submit" id="recImage">
     </div>
 
-    <div id="dynamicInput">
-     Ingredient 1<br><input type="text" name="myInputs[]">
+    <div id="dynamicIngredients">
+      Ingredient 1<br><input type="text" id="ing1">
     </div>
     <br>
-    <input type="button" value="Add Ingredient" onClick="addInput('dynamicInput');">
+    <input type="button" value="Add Ingredient" onClick="addIng('dynamicIngredients');">
 <br>
 <br>
+    <div class="form-group">
+      <label for="recServ">Servings</label>
+      <input type="text" class="form-control" id="recServ" placeholder="Enter Amount of Servings">
+    </div>
+    <div id="dynamicDirections">
+      Step 1<br><input type="text" id="ins1">
+    </div>
+    <br>
+    <input type="button" value="Add Step" onClick="addInstruct('dynamicDirections');">
+<br>
+<br>
+    <div class="form-group">
+      <label for="recTime">Make Time (minutes)</label>
+      <input type="text" class="form-control" id="recTime" placeholder="Enter Make Time">
+    </div>
+    <div class="form-group">
+      <label for="recDescript">Description</label>
+      <input type="text" class="form-control" id="recDescript" placeholder="Description">
+    </div>
+    <br>
+    <input type="checkbox" id="glutenF">
+    <label>Gluten Free</label>
+    <br>
+    <input type="checkbox" id="vegan">
+    <label>Vegan</label>
+    <br>
+    <input type="checkbox" id="vegetarian">
+    <label for="vegetarian">Vegetarian</label>
+    <br>
+    <input type="checkbox" id="priv">
+    <label for="priv">Private Recipe</label>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
   </form>
-  <label>Description:</label>
-  <textarea rows="4" cols="108" name="recDescript" id="recDescript" placeholder="Enter Directions/Description" form="inpForm"></textarea>
-  <br>
-  <br>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-
+<br>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-	</body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+  </body>
 </html>
