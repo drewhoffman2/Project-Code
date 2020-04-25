@@ -35,7 +35,7 @@
         }
      else {
           var newdiv = document.createElement('div');
-          newdiv.innerHTML = "Ingredient " + (counter + 1) + " <br><input type='text' id='ing" + (counter + 1) + "'>";
+          newdiv.innerHTML = "Ingredient " + (counter + 1) + " <br><input type='text' id='ing" + (counter + 1) + "' required>";
           document.getElementById(divName).appendChild(newdiv);
           counter++;
      }
@@ -83,7 +83,7 @@
           <a class="nav-link" href="../Search/searchRecipes.html">Search Recipes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="newRec/newRecipe.html">New Recipe</a>
+          <a class="nav-link" href="newRecipe.html">New Recipe</a>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
@@ -93,13 +93,16 @@
   </nav>
   <!--link to .js file -->
   <script src="newRecipe.js"></script>
-
+<br>
+<div class="container">
+  <h1>Create New Recipe<h1>
+</div>
 <br>
   <div class="container" id="inpFormCont">
   <form method="post" id="inpForm">
     <div class="form-group">
       <label for="recTitle">Title</label>
-      <input type="text" class="form-control" id="recTitle" placeholder="Enter Title">
+      <input type="text" class="form-control" id="recTitle" placeholder="Enter Title" required>
     </div>
 
     <div class="form-group">
@@ -107,34 +110,35 @@
       <br>
       <input type="file" alt="Submit" id="recImage">
     </div>
+<div class="splitscreen">
+    <div id="dynamicIngredients" class="left">
+      Ingredient 1<br><input type="text" id="ing1" required>
+    </div>
+    <br>
+    <input type="button" class="butt" value="Add Ingredient" onClick="addIng('dynamicIngredients');">
+<br>
+<br>
+    <div id="dynamicDirections" class="right">
+      Step 1<br><input type="text" id="ins1" required>
+    </div>
+    <br>
+    <input type="button" class="butt" value="Add Step" onClick="addInstruct('dynamicDirections');">
+  </div>
 
-    <div id="dynamicIngredients">
-      Ingredient 1<br><input type="text" id="ing1">
-    </div>
-    <br>
-    <input type="button" value="Add Ingredient" onClick="addIng('dynamicIngredients');">
-<br>
-<br>
-    <div class="form-group">
-      <label for="recServ">Servings</label>
-      <input type="text" class="form-control" id="recServ" placeholder="Enter Amount of Servings">
-    </div>
-    <div id="dynamicDirections">
-      Step 1<br><input type="text" id="ins1">
-    </div>
-    <br>
-    <input type="button" value="Add Step" onClick="addInstruct('dynamicDirections');">
-<br>
-<br>
-    <div class="form-group">
+<div class="splitscreen">
+<div class="form-group" style="padding:20px">
+  <label for="recServ">Servings</label>
+  <input type="number" min="1" class="form-control" id="recServ" placeholder="Enter Amount of Servings" required>
+</div>
+    <div class="form-group" style="padding:20px">
       <label for="recTime">Make Time (minutes)</label>
-      <input type="text" class="form-control" id="recTime" placeholder="Enter Make Time">
+      <input type="number" min="1" class="form-control" id="recTime" placeholder="Enter Make Time" required>
     </div>
+  </div>
     <div class="form-group">
       <label for="recDescript">Description</label>
-      <input type="text" class="form-control" id="recDescript" placeholder="Description">
+      <input type="text" class="form-control" id="recDescript" placeholder="Description" required>
     </div>
-    <br>
     <input type="checkbox" id="glutenF">
     <label>Gluten Free</label>
     <br>
@@ -145,7 +149,7 @@
     <label for="vegetarian">Vegetarian</label>
     <br>
     <input type="checkbox" id="priv">
-    <label for="priv">Private Recipe</label>
+    <label for="priv">Private Recipe (Don't post to profile)</label>
     <br>
     <button type="submit" class="btn btn-primary">Submit</button>
 

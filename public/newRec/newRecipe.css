@@ -8,4 +8,25 @@ body {
     height: 100;
     width: 100%;
     background: #d1cfcf;
+    font-family: 'Bellota Text';
+    font-size: 22px;
+}
+
+.splitscreen {
+    display:flex;
+}
+.splitscreen .left {
+    flex: 1;
+    padding: 20px;
+
+}
+.splitscreen .right {
+    flex: 1;
+    padding: 20px;
+}
+
+.butt {
+  height:50px;
+  width:200px;
+  top:20px;
 }
