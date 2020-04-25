@@ -13,7 +13,7 @@
   //var currentuser = firebaseUser.uid;
   var email = $("#txtEmail").val();
   var pass = $("#txtPassword").val();
-  //dumb shit boi
+  //test
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
