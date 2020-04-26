@@ -1,5 +1,3 @@
-
-// Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
   authDomain: "finish-my-dish.firebaseapp.com",
@@ -18,6 +16,84 @@ firebase.analytics();
 const database = firebase.database();
 //var ref = database.ref('recipes');
 //ref.on('value', gotData, errData);
+
+(function(){
+  const txtEmail = document.getElementById('txtEmail');
+  const txtPassword = document.getElementById('txtPassword');
+  const btnlogin = document.getElementById('btnLogin');
+  const btnSignup = document.getElementById('btnSignup');
+  const btnLogout = document.getElementById('btnLogout');
+
+  btnlogin.addEventListener('click', e => {
+    const email = txtEmail.value;
+    const pass = txtPassword.value;
+    const auth = firebase.auth();
+    const promise = auth.signInWithEmailAndPassword(email, pass);
+    promise.catch(e => console.log(e.message));
+  });
+
+  btnSignup.addEventListener('click', e => {
+    const email = txt_Email.value;
+    const pass = txt_Password.value;
+    const auth = firebase.auth();
+    const promise = auth.createUserWithEmailAndPassword(email, pass);
+    promise
+    .catch(e => console.log(e.message));
+    //String currentuser = firebase.uid
+    //writeuserdata(currentuser, pass, email);
+    console.log('created new')
+  });
+
+  btnLogout.addEventListener('click', e => {
+    firebase.auth().signOut();
+  });
+
+  firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser){
+      console.log(firebaseUser.uid);
+      var currentuser = firebaseUser.uid;
+      //var pw = firebaseUser.password;
+      //var em = firebaseUser.email;
+      var email = txt_Email.value;
+      var pass = txt_Password.value;
+      var fname = f_name.value;
+      var lname = l_name.value;
+      //var email = $("#txtEmail").val();
+      //var pass = $("#txtPassword").val();
+      writeuserdata(currentuser, pass, email, fname, lname);
+      alert("You have Been Logged in!!");
+      window.location = "../public/MyRecipes/MyRecipes.html"
+      btnLogout.classList.remove('hide');
+    }
+    else {
+      console.log('not logged in')
+      alert("You are Currently Logged out");
+      btnLogout.classList.add('hide');
+    }
+  });
+
+  function writeuserdata(userID, Password, email, fname, lname)
+  {
+    firebase.database().ref('users/' + userID).set({
+      email: email,
+      password: Password,
+      first_name: fname,
+      last_name: lname,
+      friends: 0,
+    });
+  }
+
+  var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+}());
+
 //this is the content to build the cards for the user recipes
 var number=0;
 var content = ``;
@@ -34,7 +110,7 @@ function test(data) {
   //console.log(users[keys[0]].recipes);
   var length = users[keys[2]].recipes.length
   var recipe_ids = users[keys[2]].recipes
-  console.log(document.getElementById('users'))
+  console.log(firebaseUser.uid)
   console.log(length);
 //here I reference the recipes array with what the user has stored
   for (var i=0; i<length; i++){
