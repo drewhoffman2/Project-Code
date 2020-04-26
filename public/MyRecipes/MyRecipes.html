@@ -5,13 +5,6 @@
   <body style=background-color:#d1cfcf;>
   <style>
   .h5 {text-align: center;}
-  #recipe1{
-  height: 500px;
-  background-color: #ff7366;
-}
-  #recipe2{
-  background-color: #ff7366;
-}
 .card-title {height: 50px;}
 .card-text { height: 176px; overflow-y: scroll; width: 100%; }
 
@@ -44,7 +37,11 @@
   max-height: calc(100vh - 54px);
   overflow-y: auto;
 }
-
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
 .close {
   color: #aaa;
   float: right;
@@ -147,7 +144,7 @@
           <a class="nav-link" href="../index.html">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="MyRecipes/MyRecipes.html">My Recipes<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="../MyRecipes/MyRecipes.html">My Recipes<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../FriendsNetwork/friendsPage.html">My Friends</a>
@@ -160,7 +157,7 @@
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+        <button id="btnLogout" class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
       </div>
     </div>
   </nav>
@@ -169,20 +166,25 @@
     <div class="container">
       <h1 class="display-4">Recipes</h1>
       <p class="lead">Here are all the recipes you currently have saved!</p>
-    </div>
+      <h2>My Recipes:</h2>
+      <div class="container">
+      <div id ="recipes" class="row card-columns">
+      </div>
+      </div>
+      <h3>Saved Recipes:</h3>
+      <div class="container">
+      <div id ="saved_recipes" class="row card-columns">
+      </div>
+      </div>
+      </div>
 
 
 
 <!-- Cards Here -->
-<div class="container">
-<div id ="recipes" class="row card-columns">
-</div>
-</div>
-
-
 
   <!-- <script src="../index.js"></script> -->
   <script src="test.js"></script>
+  <script src="../../Login_Page/app.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
