@@ -13,7 +13,9 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  var userii = "";
+  // var gloabalVariable={
+  //   userii: ""
+  // };
 
 (function(){
   const txtEmail = document.getElementById('txtEmail');
@@ -48,6 +50,7 @@
     if (firebaseUser){
       console.log(firebaseUser.uid);
       var currentuser = firebaseUser.uid;
+      localStorage.setItem("idstor", currentuser)
       var email = txt_Email.value;
       var pass = txt_Password.value;
       var fname = f_name.value;
@@ -82,6 +85,10 @@
     userii = useri;
     console.log(userii)
   }
+
+  var gloabalVariable={
+    userii: ""
+  };
 
 
   // var modal = document.getElementById('id01');

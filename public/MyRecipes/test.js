@@ -11,10 +11,11 @@ var firebaseConfig = {
   measurementId: "G-CGCBSG2CG1"
 };
 // Initialize Firebase
+var userj = localStorage.getItem("idstor");
 var recipe_index=0;
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-//console.log(firebase);
+console.log(userj);
 const database = firebase.database();
 //var ref = database.ref('recipes');
 //ref.on('value', gotData, errData);
@@ -30,6 +31,7 @@ function test(data) {
   var users = data.val();
   var keys = Object.keys(users);
   console.log(keys)
+  //console.log(userii)
   //match the user that I am using with the proper id in the array and use that as the index
   //console.log(users[keys[0]].recipes);
   var length = users[keys[7]].recipes.length;
