@@ -362,7 +362,7 @@ function gotDataSearch(data) {
       }
     }
 
-    if (recipes[k].private == 0) {
+    if (recipes[k].private == 0 && createdByUser == false) {
       var recipe_name = recipes[k].recipe_name;
       // make strings to lower case to make searching strings easier
       var recipe_name_lower = recipe_name.toLowerCase();
@@ -462,10 +462,12 @@ function gotDataAdvanced(data) {
 
     // check if the recipe is made by the current user
     var user_recipe = JSON.parse(localStorage.getItem('CurrentUserData'));
-    for (var a = 0; a < user_recipe.recipes.length; a++) {
-      //console.log(user_recipe.recipes[a]);
-      if (user_recipe.recipes[a] == k) {
-        createdByUser = true;
+    if (user_recipe != undefined) {
+      for (var a = 0; a < user_recipe.recipes.length; a++) {
+        //console.log(user_recipe.recipes[a]);
+        if (user_recipe.recipes[a] == k) {
+          createdByUser = true;
+        }
       }
     }
 
