@@ -16,7 +16,7 @@ var userID = localStorage.getItem("idstor");
 var recipe_index=0;
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-
+console.log(userID);
 const database = firebase.database();
 //var ref = database.ref('recipes');
 //ref.on('value', gotData, errData);
