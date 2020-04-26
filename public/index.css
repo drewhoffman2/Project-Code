@@ -31,20 +31,13 @@ body {
 }
 
 #image4 {
-  background-image: url("images/tacos_home.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
-
-#image5 {
   background-image: url("images/pizza.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
 
-#image6 {
+#image5 {
   background-image: url("images/dessert-main-image-molten-cake.jpg");
   background-size: cover;
   background-repeat: no-repeat;
