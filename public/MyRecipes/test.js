@@ -10,6 +10,7 @@ var firebaseConfig = {
   appId: "1:128425488934:web:fdb5d13d67bbb85da92ce7",
   measurementId: "G-CGCBSG2CG1"
 };
+
 // Initialize Firebase
 var userj = localStorage.getItem("idstor");
 var recipe_index=0;
@@ -33,17 +34,14 @@ function test(data) {
   console.log(keys)
   //console.log(userii)
   //match the user that I am using with the proper id in the array and use that as the index
-  //console.log(users[keys[0]].recipes);
+  //console.log(users[keys[7]].recipes);
   var length = users[keys[7]].recipes.length;
   var recipe_ids = users[keys[7]].recipes;
-  // if(users[keys[7]].saved_recipes != undefined){
-  // var saved_rec = Object.keys(users[keys[7]].saved_recipes);
-  // console.log(users[keys[7]].saved_recipes.saved_rec);
-  // var saved_length = saved_rec.length;
-  // }
-  // else {var saved_length = 0;}
-  //
-  // var recipe_ids = users[keys[7]].recipes;
+  if(users[keys[7]].saved_recipes != undefined){
+   var saved_rec = Object.keys(users[keys[7]].saved_recipes);
+   var saved_length = saved_rec.length;
+   }
+   else {var saved_length = 0;}
 
 //here I reference the recipes array with what the user has stored
   for (var i=0; i<length; i++){
@@ -52,12 +50,11 @@ function test(data) {
     user_recipes.on('value', gotData, errData);
   }
 
-  // for (var i=0; i<saved_length; i++)
-  // {
-  //   console.log(saved_rec[0]);
-  //   var user_saved = database. ref('recipes/' + saved_rec[i]);
-  //   user_saved.on('value', fill_saved, err);
-  // }
+  for (var i=0; i<saved_length; i++)
+  {
+    var user_saved = database. ref('recipes/' + users[keys[7]].saved_recipes[saved_rec[i]]);
+    user_saved.on('value', fill_saved, err);
+  }
 
 }
 
@@ -68,7 +65,7 @@ function fill_saved(data)
   var recipe_id = data.key;
   //var keys = Object.keys(recipes);
   console.log(data);
-  let container = document.getElementById('recipes');
+  let container = document.getElementById('saved_recipes');
   let modals = document.getElementById('modals');
   // recipe information below
     var ingredients = recipes.ingredients;
@@ -117,7 +114,6 @@ function fill_saved(data)
         <div id="${card_name}">
         <img id="${pic_id}" class="card-img-top img-fluid" style="height:230px" src="../images/spaghetti.jpg" alt="Card image cap" >
         <button onclick="Display(${modal_name})">View Recipe</button>
-        <button onclick="privacyChange(${card_name})">Change Privacy</button>
         <button onclick="DeleteRec(${card_name})">Delete</button>
         <div class="card-block">
           <h4 class="card-title">${name}</h4>

@@ -32,10 +32,8 @@ function removeIngredient() {
 function clickAdvance() {
   document.getElementById("keyword").required = true;
 
-  setTimeout(function() {
+  set(function() {
     var advancedForm = document.getElementById("keyword");
-    //advancedForm.scrollIntoView();
-    console.log("Hello");
 
     location.href = "#keyword"; }, 355);
 }
@@ -65,6 +63,7 @@ function getSearch() {
 
   // check if the user typed in something
   if (search != "") {
+
     console.log(search);
     localStorage.setItem("Search", search);
     // redirct the page to displaySearch page
@@ -747,6 +746,7 @@ function getImageUrl(pic) {
     imageRef.getDownloadURL().then(function(url) {
       // Once we have the download URL, we set it to our img element
       document.getElementById('picture').src = url;
+      console.log(url);
     })
 
 }
