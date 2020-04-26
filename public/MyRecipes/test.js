@@ -16,7 +16,7 @@ var userID = localStorage.getItem("idstor");
 var recipe_index=0;
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-
+console.log(userID);
 const database = firebase.database();
 //var ref = database.ref('recipes');
 //ref.on('value', gotData, errData);
@@ -34,11 +34,14 @@ function test(data) {
   console.log(keys)
   //console.log(userii)
   //match the user that I am using with the proper id in the array and use that as the index
-  //console.log(users[keys[7]].recipes);
-  var length = users[keys[7]].recipes.length;
-  var recipe_ids = users[keys[7]].recipes;
-  if(users[keys[7]].saved_recipes != undefined){
-   var saved_rec = Object.keys(users[keys[7]].saved_recipes);
+  //console.log(users[userID].recipes);
+  if(users[userID].recipes != undefined){
+  var length = users[userID].recipes.length;
+  var recipe_ids = users[userID].recipes;
+  }
+  else{var length=0;}
+  if(users[userID].saved_recipes != undefined){
+   var saved_rec = Object.keys(users[userID].saved_recipes);
    var saved_length = saved_rec.length;
    }
    else {var saved_length = 0;}
@@ -52,7 +55,7 @@ function test(data) {
 
   for (var i=0; i<saved_length; i++)
   {
-    var user_saved = database. ref('recipes/' + users[keys[7]].saved_recipes[saved_rec[i]]);
+    var user_saved = database. ref('recipes/' + users[userID].saved_recipes[saved_rec[i]]);
     user_saved.on('value', fill_saved, err);
   }
 
