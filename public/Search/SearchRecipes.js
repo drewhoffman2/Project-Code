@@ -1,5 +1,7 @@
 var numIngredients = 0;
-
+var userIDD = localStorage.getItem("idstor");
+console.log(userIDD);
+console.log("useriddddd^");
 // function to add another text box for ingredient items
 function createNewElement() {
   numIngredients++;
@@ -57,8 +59,10 @@ function capitalize(word) {
 
 // function to get the search from the user
 function getSearch() {
+  var user = localStorage.getItem("idstor");
   // clear localStorage to reset search info
   localStorage.clear();
+  localStorage.setItem("idstor", user);
   var search = document.getElementById("search").value;
 
   // check if the user typed in something
@@ -75,8 +79,10 @@ function getSearch() {
 }
 
 function getAdvancedSearch() {
+  var user = localStorage.getItem("idstor");
   // clear localStorage to reset search info
   localStorage.clear();
+  localStorage.setItem("idstor", user);
 
   var keyword = document.getElementById("keyword").value;
 
@@ -345,6 +351,7 @@ function gotDataSearch(data) {
   var recipe_array = [];
   // array to hold keys of found recipes, array to hold image's urls
   var ids_array = [], pic_array = [],unique_id;
+  var createdByUser = false;
 
   // for loop that runs through keys in recipes
   for (var i = 0; i < keys.length; i++) {
@@ -353,14 +360,16 @@ function gotDataSearch(data) {
 
     // check if the recipe is made by the current user
     var user_recipe = JSON.parse(localStorage.getItem('CurrentUserData'));
-    for (var a = 0; a < user_recipe.recipes.length; a++) {
-      //console.log(user_recipe.recipes[a]);
-      if (user_recipe.recipes[a] == k) {
-        createdByUser = true;
+    if (user_recipe.recipes != undefined) {
+      for (var a = 0; a < user_recipe.recipes.length; a++) {
+        //console.log(user_recipe.recipes[a]);
+        if (user_recipe.recipes[a] == k) {
+          createdByUser = true;
+        }
       }
     }
 
-    if (recipes[k].private == 0) {
+    if (recipes[k].private == 0 && createdByUser == false) {
       var recipe_name = recipes[k].recipe_name;
       // make strings to lower case to make searching strings easier
       var recipe_name_lower = recipe_name.toLowerCase();
@@ -460,10 +469,12 @@ function gotDataAdvanced(data) {
 
     // check if the recipe is made by the current user
     var user_recipe = JSON.parse(localStorage.getItem('CurrentUserData'));
-    for (var a = 0; a < user_recipe.recipes.length; a++) {
-      //console.log(user_recipe.recipes[a]);
-      if (user_recipe.recipes[a] == k) {
-        createdByUser = true;
+    if (user_recipe != undefined) {
+      for (var a = 0; a < user_recipe.recipes.length; a++) {
+        //console.log(user_recipe.recipes[a]);
+        if (user_recipe.recipes[a] == k) {
+          createdByUser = true;
+        }
       }
     }
 
@@ -782,7 +793,7 @@ function getCreator(data) {
 // function to add the current recipe to saved recipes array of the logged in user
 function saveRecipe() {
   //console.log(localStorage.getItem("CurrentUser"));
-  var name = localStorage.getItem("CurrentUser");
+  var name = userIDD;
   var recipeID = localStorage.getItem("ID");
   var ref = database.ref('users/' + name + "/saved_recipes");
 
@@ -800,7 +811,7 @@ function gotUserInfo(data) {
   var users = data.val();
   // get data in array for all keys in recipes
   var keys = Object.keys(users);
-  var currentUser = localStorage.getItem("CurrentUser"), found = false, i = 0;
+  var currentUser = userIDD, found = false, i = 0;
 
   while (found == false) {
     // declare variables
@@ -809,7 +820,9 @@ function gotUserInfo(data) {
     if (k == currentUser) {
       found = true;
       currentUser = users[k];
-      localStorage.setItem("SavedRecipes", JSON.stringify(currentUser.saved_recipes));
+      if (currentUser.saved_recipes != undefined) {
+          localStorage.setItem("SavedRecipes", JSON.stringify(currentUser.saved_recipes));
+      }
     }
     else {
       i++;
@@ -820,24 +833,32 @@ function gotUserInfo(data) {
 // function to check if the save button needs to be disabled if user already has saved the current recipe
 function checkSaveButton(recipeID) {
   console.log(recipeID);
+  // if (localStorage.getItem('SavedRecipes')==undefined)
+  // {
+  //   console.log("True")
+  // }
   // get the user's saved recipes from localStorage
-  var saved = JSON.parse(localStorage.getItem('SavedRecipes'));
-  console.log(saved);
+  if (localStorage.getItem('SavedRecipes'))
+  {
+    var saved = JSON.parse(localStorage.getItem('SavedRecipes'));
+    console.log(saved);
+    if (saved != undefined) {
+      var keys = Object.keys(saved);
+      var found = false, i = 0;
 
-  var keys = Object.keys(saved);
-  var found = false, i = 0;
-
-  while (found == false && i < keys.length) {
-    // declare variables
-    var k = keys[i];
-    if (saved[k] == recipeID) {
-      found = true;
-      // disable the button and change the innerHTML to saved
-      document.getElementById("saveButton").disabled = true;
-      document.getElementById("saveButton").innerHTML = "Already Saved";
-    }
-    else {
-       i++;
+      while (found == false && i < keys.length) {
+        // declare variables
+        var k = keys[i];
+        if (saved[k] == recipeID) {
+          found = true;
+          // disable the button and change the innerHTML to saved
+          document.getElementById("saveButton").disabled = true;
+          document.getElementById("saveButton").innerHTML = "Already Saved";
+        }
+        else {
+           i++;
+        }
+      }
     }
   }
 }

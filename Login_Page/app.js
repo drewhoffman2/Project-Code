@@ -13,7 +13,9 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  var userii = "";
+  // var gloabalVariable={
+  //   userii: ""
+  // };
 
 (function(){
   const txtEmail = document.getElementById('txtEmail');
@@ -48,12 +50,13 @@
     if (firebaseUser){
       console.log(firebaseUser.uid);
       var currentuser = firebaseUser.uid;
+      localStorage.setItem("idstor", currentuser)
       var email = txt_Email.value;
       var pass = txt_Password.value;
       var fname = f_name.value;
       var lname = l_name.value;
       writeuserdata(currentuser, pass, email, fname, lname);
-      varcarry(currentuser);
+      //varcarry(currentuser);
       alert("You have Been Logged in!!");
       window.location = "../public/MyRecipes/MyRecipes.html"
       btnLogout.classList.remove('hide');
@@ -77,12 +80,11 @@
     });
   }
 
-  function varcarry(useri){
-    console.log(useri);
-    userii = useri;
-    console.log(userii)
-  }
-
+  // function varcarry(useri){
+  //   //console.log(useri);
+  //   userii = useri;
+  //   //console.log(userii)
+  // }
 
   // var modal = document.getElementById('id01');
   //

@@ -12,6 +12,8 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+var userID = localStorage.getItem("idstor");
+console.log(userID);
 var recRef = firebase.database().ref('recipes');
 
 var submitRecipe = function() {
