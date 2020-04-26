@@ -814,6 +814,10 @@ function gotUserInfo(data) {
     if (k == currentUser) {
       found = true;
       currentUser = users[k];
+      if (currentUser.saved_recipes != undefinded) {
+        var array = [];
+        currentUser.saved_recipes = array;
+      }
       localStorage.setItem("SavedRecipes", JSON.stringify(currentUser.saved_recipes));
     }
     else {
