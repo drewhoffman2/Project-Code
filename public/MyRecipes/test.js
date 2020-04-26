@@ -12,11 +12,11 @@ var firebaseConfig = {
 };
 
 // Initialize Firebase
-var userj = localStorage.getItem("idstor");
+var userID = localStorage.getItem("idstor");
 var recipe_index=0;
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-console.log(userj);
+
 const database = firebase.database();
 //var ref = database.ref('recipes');
 //ref.on('value', gotData, errData);

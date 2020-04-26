@@ -71,7 +71,7 @@
 
   function writeuserdata(userID, Password, email, fname, lname)
   {
-    firebase.database().ref('users/' + userID).set({
+    firebase.database().ref('users/' + userID).push({
       email: email,
       password: Password,
       first_name: fname,
@@ -85,11 +85,6 @@
     userii = useri;
     console.log(userii)
   }
-
-  var gloabalVariable={
-    userii: ""
-  };
-
 
   // var modal = document.getElementById('id01');
   //
