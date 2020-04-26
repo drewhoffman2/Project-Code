@@ -345,6 +345,7 @@ function gotDataSearch(data) {
   var recipe_array = [];
   // array to hold keys of found recipes, array to hold image's urls
   var ids_array = [], pic_array = [],unique_id;
+  var createdByUser = false;
 
   // for loop that runs through keys in recipes
   for (var i = 0; i < keys.length; i++) {
