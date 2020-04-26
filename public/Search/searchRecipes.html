@@ -28,9 +28,6 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">Home</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="../MyRecipes/MyRecipes.html">My Recipes</a>
         </li>
         <li class="nav-item">
@@ -78,13 +75,13 @@
     <p>If you want to perform an advanced search, click on the "Advanced Search" button and then fill out the form.</p>
   </div>
 
-  <form class="form-inline">
+  <form id="searches" class="form-inline" onsubmit="return false;">
     <div class="form-group col-lg-6 justify-content-center">
       <div class="input-group">
          <input id="search" class="form-control py-2 rounded-pill mr-1 pr-5" name="search" type="search" placeholder="search" required>
          <span class="input-group-append">
-             <button id="searchBtn" class="btn rounded-pill border-0 ml-n5" onClick="getSearch()" type="button">
-                   <i class="fa fa-search"></i>
+             <button id="searchBtn" class="btn rounded-pill border-0 ml-n5" href="#" onClick="getSearch()" type="button">
+                   <i id="searchIcon" class="fa fa-search"></i>
              </button>
          </span>
      </div>

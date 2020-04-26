@@ -2,13 +2,17 @@ html {
   scroll-behavior: smooth;
 }
 
+nav {
+  font-size: 22px;
+}
+
 body {
     padding: 0;
     margin: 0;
     height: 100;
     width: 100%;
     background: #ff7366;
-    font-family: 'Bellota Text';font-size: 22px;
+    font-family: 'Bellota Text';
 }
 
 .SearchJumbotron {
