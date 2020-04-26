@@ -1,3 +1,5 @@
+
+
 (function(){
   var firebaseConfig = {
     apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
@@ -11,8 +13,8 @@
   };
 
   //var currentuser = firebaseUser.uid;
-  var email = $("#txtEmail").val();
-  var pass = $("#txtPassword").val();
+  //var email = $("#txtEmail").val();
+  //var pass = $("#txtPassword").val();
   //test
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -32,8 +34,8 @@
   });
 
   btnSignup.addEventListener('click', e => {
-    const email = txtEmail.value;
-    const pass = txtPassword.value;
+    const email = txt_Email.value;
+    const pass = txt_Password.value;
     const auth = firebase.auth();
     const promise = auth.createUserWithEmailAndPassword(email, pass);
     promise
@@ -50,15 +52,18 @@
   firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser){
       console.log(firebaseUser.uid);
-      //var currentuser = firebaseUser.uid;
+      var currentuser = firebaseUser.uid;
       //var pw = firebaseUser.password;
       //var em = firebaseUser.email;
-      //var email = txtEmail.value;
-      //var pass = txtPassword.value;
-      writeuserdata(currentuser, pass, email);
+      var email = txt_Email.value;
+      var pass = txt_Password.value;
+      var fname = f_name.value;
+      var lname = l_name.value;
+      //var email = $("#txtEmail").val();
+      //var pass = $("#txtPassword").val();
+      writeuserdata(currentuser, pass, email, fname, lname);
       alert("You have Been Logged in!!");
-      //window.location = "../public/MyRecipes/MyRecipes.html"
-      //btnLogout.getElementById("btnLogout").style.visibility = "hidden";
+      window.location = "../public/MyRecipes/MyRecipes.html"
       btnLogout.classList.remove('hide');
     }
     else {
@@ -68,12 +73,27 @@
     }
   });
 
-  function writeuserdata(userID, Password, email)
+  function writeuserdata(userID, Password, email, fname, lname)
   {
     firebase.database().ref('users/' + userID).set({
       email: email,
       password: Password,
+      first_name: fname,
+      last_name: lname,
+      friends: 0,
     });
   }
+
+  var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+
+
 
 }());

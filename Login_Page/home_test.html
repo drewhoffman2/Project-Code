@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,6 +11,7 @@
 		}
 		</style>
   <title>HTML Login form</title>
+
   <link rel="stylesheet" href="style.css">
   <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase.js"></script>
 </head>
@@ -19,15 +19,49 @@
 <div class="form-container">
   <ul class=list>
     <li>Member Login</li>
-    <input id="txtEmail" type="text" placeholder="Email">
-    <input id="txtPassword" type="text" placeholder="Password">
+
+    <input id="txtEmail" type="text" placeholder="Email" name="email">
+
+    <input id="txtPassword" type="text" placeholder="Password" name="password">
     <br>
     <br>
-    <!-- <li><input type="text" name="txtEmail" placeholder="User name"></li>
-    <li><input type="password" name="txtPassword" placeholder="*******"></li> -->
-    <!-- <li><input type="button" name="btnLogin" value="Login"></li> -->
     <button id="btnLogin" class="button"> Log in </button>
-    <button id="btnSignup" class="button">Sign Up </button>
+    <!-- <button id="btnSignup" class="button">Sign Up </button> -->
+
+
+    <!-- <button class="button" onclick="document.getElementById('id01').style.display='block'">Sign Up</button>
+       <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">X</span>
+        <form class="modal-content">
+          <div class="container">
+            <h1>Sign Up</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+            <!-- <label for="email"><b>Email</b></label> -->
+            <input id="txt_Email" type="text" placeholder="Enter Email" name="email" >
+
+            <!-- <label for="psw"><b>Password</b></label> -->
+            <input id="txt_Password" type="text" placeholder="Enter Password" name="psw" >
+
+            <!-- <label for="psw-repeat"><b>Repeat Password</b></label> -->
+            <!-- <input id="txtPassword" type="text" placeholder="Repeat Password" name="psw-repeat" > -->
+
+            <!-- <label for="first-name"><b>First Name</b></label> -->
+            <input id="f_name" type="text" placeholder="First Name" name="first-name" >
+
+            <!-- <label for="last-name"><b>Last Name</b></label> -->
+            <input id="l_name" type="text" placeholder="Last Name" name="last-name" >
+
+             <!-- <div class="clearfix"> -->
+              <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> -->
+              <button id="btnSignup" class="button">Sign Up </button>
+            <!--</div>
+          </div>
+        </form>
+      </div> -->
+      
+
+
     <button id="btnLogout" class="button"> Log out </button>
     <!-- <div class="checkbox">
     <label><input type="checkbox"> Remember me</label>
@@ -38,9 +72,6 @@
 </div>
 
 <script src="app.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
