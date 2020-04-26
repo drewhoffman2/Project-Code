@@ -353,10 +353,12 @@ function gotDataSearch(data) {
 
     // check if the recipe is made by the current user
     var user_recipe = JSON.parse(localStorage.getItem('CurrentUserData'));
-    for (var a = 0; a < user_recipe.recipes.length; a++) {
-      //console.log(user_recipe.recipes[a]);
-      if (user_recipe.recipes[a] == k) {
-        createdByUser = true;
+    if (user_recipe != undefined) {
+      for (var a = 0; a < user_recipe.recipes.length; a++) {
+        //console.log(user_recipe.recipes[a]);
+        if (user_recipe.recipes[a] == k) {
+          createdByUser = true;
+        }
       }
     }
 
