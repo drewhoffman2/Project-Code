@@ -4,6 +4,9 @@
 //console.log(firebase);
 //const database = firebase.database();
 
+var userID = localStorage.getItem("idstor");
+console.log(userID);
+
 var ref = database.ref('users');//create friends on firebase
 
 
