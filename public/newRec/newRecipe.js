@@ -17,27 +17,28 @@ console.log(userID);
 var recRef = firebase.database().ref('recipes');
 
 var submitRecipe = function() {
-    //var user = $("#").val(); //figure out
+    //get info from html IDs
+    var user = userID;
     var descrip = $("#recDescript").val();
-    //var image = $("#recImage").val(); //figure out
     var maketime = $("#recTime").val();
     var recipe_name = $("#recTitle").val();
     var servings = $("#recServ").val();
 
-    //to collect all of ingredient/instruction array
+    //collect all of ingredient/instruction array
     var ingredients = [];
     var ingCount = 1; //counter
-    while(ingCount < 11 && $("#ing" + ingCount).val()){ //while counter < maximum AND the id returns a nonNULL value
+    while($("#ing" + ingCount).val()){ //while id returns a nonNULL value
       ingredients.push($("#ing" + ingCount).val()); //push value onto array
       ingCount++;
     }
     var directions = [];
     var dirCount = 1;
-    while(dirCount < 16 && $("#ins" + dirCount).val()){
+    while($("#ins" + dirCount).val()){
       directions.push($("#ins" + dirCount).val());
       dirCount++;
     }
 
+    //checkbox info
     var gluten_free = 0;
     if($("#glutenF").prop("checked") == true){
       gluten_free = 1;
@@ -55,12 +56,24 @@ var submitRecipe = function() {
       vegetarian = 1;
     }
 
+    //save image in storage
+    var imgFile = $('#recImage').get(0).files[0];
+    if(imgFile){
+      var storeRef = firebase.storage().ref();
+      var imgName = imgFile.name;
+      var picRef = storeRef.child('images/' + imgName);
+      picRef.put(imgFile).then(function(snapshot){
+        console.log('Uploaded image');
+      })
+    }
+
+    //push created recipe into database
     recRef.push({
-      //"created_by" : user,
+      "created_by" : user,
       "descrip" : descrip,
       "directions" : directions,
       "gluten_free" : gluten_free,
-      //"image" : image,
+      "image" : imgName,
       "ingredients" : ingredients,
       "maketime" : maketime,
       "private" : private,
@@ -70,6 +83,8 @@ var submitRecipe = function() {
       "vegan" : vegan,
       "vegetarian" : vegetarian
     });
+
+    //add recipe to user's list
 };
 
 $(window).on('load', function () {
