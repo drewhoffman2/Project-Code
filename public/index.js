@@ -11,7 +11,7 @@ var firebaseConfig = {
   measurementId: "G-CGCBSG2CG1"
 };
 // Initialize Firebase
-//firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 console.log(firebase);
 const database = firebase.database();
@@ -39,8 +39,8 @@ var d = new Date;
 //
 
 
-// var userID = "-M5OcEJCoU2MkN1Abe0D";
-// localStorage.setItem("CurrentUser", userID);
+var userID = "-M5OcEJCoU2MkN1Abe0D";
+localStorage.setItem("CurrentUser", userID);
 
 
 var ref = database.ref('users');
@@ -53,7 +53,7 @@ function getCurrentUser(data) {
   // get data in array for all keys in recipes
   var keys = Object.keys(users);
 
-  var userID = localStorage.getItem("idstor"), found = false, count = 0;
+  var userID = localStorage.getItem("CurrentUser"), found = false, count = 0;
   console.log(userID);
   while (found == false && count < keys.length) {
     var k = keys[count];
