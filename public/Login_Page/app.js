@@ -58,7 +58,7 @@
       writeuserdata(currentuser, pass, email, fname, lname);
       //varcarry(currentuser);
       alert("You have Been Logged in!!");
-      window.location = "../MyRecipes/MyRecipes.html"
+      //window.location = "../MyRecipes/MyRecipes.html"
       btnLogout.classList.remove('hide');
     }
     else {
