@@ -37,7 +37,7 @@ function test(data) {
   //console.log(users[keys[7]].recipes);
   var length = users[keys[7]].recipes.length;
   var recipe_ids = users[keys[7]].recipes;
-  if(users[keys[7]].saved_recipes != undefined){
+  if(users[userID].saved_recipes != undefined){
    var saved_rec = Object.keys(users[keys[7]].saved_recipes);
    var saved_length = saved_rec.length;
    }
