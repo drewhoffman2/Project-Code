@@ -1,6 +1,4 @@
 
-
-(function(){
   var firebaseConfig = {
     apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
     authDomain: "finish-my-dish.firebaseapp.com",
@@ -12,13 +10,12 @@
     measurementId: "G-CGCBSG2CG1"
   };
 
-  //var currentuser = firebaseUser.uid;
-  //var email = $("#txtEmail").val();
-  //var pass = $("#txtPassword").val();
-  //test
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
+  var userii = "";
+
+(function(){
   const txtEmail = document.getElementById('txtEmail');
   const txtPassword = document.getElementById('txtPassword');
   const btnlogin = document.getElementById('btnLogin');
@@ -40,8 +37,6 @@
     const promise = auth.createUserWithEmailAndPassword(email, pass);
     promise
     .catch(e => console.log(e.message));
-    //String currentuser = firebase.uid
-    //writeuserdata(currentuser, pass, email);
     console.log('created new')
   });
 
@@ -53,15 +48,12 @@
     if (firebaseUser){
       console.log(firebaseUser.uid);
       var currentuser = firebaseUser.uid;
-      //var pw = firebaseUser.password;
-      //var em = firebaseUser.email;
       var email = txt_Email.value;
       var pass = txt_Password.value;
       var fname = f_name.value;
       var lname = l_name.value;
-      //var email = $("#txtEmail").val();
-      //var pass = $("#txtPassword").val();
       writeuserdata(currentuser, pass, email, fname, lname);
+      varcarry(currentuser);
       alert("You have Been Logged in!!");
       window.location = "../public/MyRecipes/MyRecipes.html"
       btnLogout.classList.remove('hide');
@@ -72,6 +64,7 @@
       btnLogout.classList.add('hide');
     }
   });
+
 
   function writeuserdata(userID, Password, email, fname, lname)
   {
@@ -84,13 +77,20 @@
     });
   }
 
-  var modal = document.getElementById('id01');
+  function varcarry(useri){
+    console.log(useri);
+    userii = useri;
+    console.log(userii)
+  }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
+
+  // var modal = document.getElementById('id01');
+  //
+  //   // When the user clicks anywhere outside of the modal, close it
+  //   window.onclick = function(event) {
+  //     if (event.target == modal) {
+  //       modal.style.display = "none";
+  //     }
+  //   }
 
 }());
