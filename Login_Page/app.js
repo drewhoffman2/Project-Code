@@ -71,7 +71,7 @@
 
   function writeuserdata(userID, Password, email, fname, lname)
   {
-    firebase.database().ref('users/' + userID).push({
+    firebase.database().ref('users/' + userID).set({
       email: email,
       password: Password,
       first_name: fname,
