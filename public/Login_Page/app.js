@@ -13,10 +13,6 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  // var gloabalVariable={
-  //   userii: ""
-  // };
-
 (function(){
   const txtEmail = document.getElementById('txtEmail');
   const txtPassword = document.getElementById('txtPassword');
@@ -58,7 +54,7 @@
       writeuserdata(currentuser, pass, email, fname, lname);
       //varcarry(currentuser);
       alert("You have Been Logged in!!");
-      //window.location = "../MyRecipes/MyRecipes.html"
+      window.location = "../MyRecipes/MyRecipes.html"
       btnLogout.classList.remove('hide');
     }
     else {
