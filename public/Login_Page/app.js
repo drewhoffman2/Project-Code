@@ -24,7 +24,7 @@
   var count=0;
 
   btnlogin.addEventListener('click', e => {
-    //login=true;
+    login=true;
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
@@ -73,8 +73,12 @@
           localStorage.setItem("idstor", currentuser)
           var email = firebaseUser.uid.email;
           var pass = firebaseUser.uid.password;
-          alert("You have Been Logged in!!");
-          //window.location = "../MyRecipes/MyRecipes.html"
+          if (login==true){
+            alert("You have Been Logged in!!");
+            window.location = "../MyRecipes/MyRecipes.html"
+          }
+          // alert("You have Been Logged in!!");
+          // window.location = "../MyRecipes/MyRecipes.html"
           //btnLogout.classList.remove('hide');
         }
     }
