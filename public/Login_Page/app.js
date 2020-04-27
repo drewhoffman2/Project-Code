@@ -77,9 +77,6 @@ var firebaseConfig = {
             alert("You have Been Logged in!!");
             window.location = "../MyRecipes/MyRecipes.html"
           }
-          // alert("You have Been Logged in!!");
-          // window.location = "../MyRecipes/MyRecipes.html"
-          //btnLogout.classList.remove('hide');
         }
     }
     else
@@ -92,8 +89,6 @@ var firebaseConfig = {
       }
     }
   });
-  //var recid = "-M4KOaX8EdN3mCLdLVfA";
-
   function writeuserdata(userID, Password, email, fname, lname, uname)
   {
     database.ref('users/' + userID).set({
