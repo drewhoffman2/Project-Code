@@ -67,28 +67,50 @@ var submitRecipe = function() {
       })
     }
 
+    var recKey;
     //push created recipe into database
-    recRef.push({
-      "created_by" : user,
-      "descrip" : descrip,
-      "directions" : directions,
-      "gluten_free" : gluten_free,
-      "image" : imgName,
-      "ingredients" : ingredients,
-      "maketime" : maketime,
-      "private" : private,
-      "rating" : 0,
-      "recipe_name" : recipe_name,
-      "servings" : servings,
-      "vegan" : vegan,
-      "vegetarian" : vegetarian
-    });
+    if(imgFile){ //if image is attached
+      var newRef = recRef.push({
+        "created_by" : user,
+        "descrip" : descrip,
+        "directions" : directions,
+        "gluten_free" : gluten_free,
+        "image" : imgName,
+        "ingredients" : ingredients,
+        "maketime" : maketime,
+        "private" : private,
+        "rating" : 0,
+        "recipe_name" : recipe_name,
+        "servings" : servings,
+        "vegan" : vegan,
+        "vegetarian" : vegetarian
+      });
+      recKey = newRef.key;
+    } else {
+      var newRef = recRef.push({
+        "created_by" : user,
+        "descrip" : descrip,
+        "directions" : directions,
+        "gluten_free" : gluten_free,
+        "ingredients" : ingredients,
+        "maketime" : maketime,
+        "private" : private,
+        "rating" : 0,
+        "recipe_name" : recipe_name,
+        "servings" : servings,
+        "vegan" : vegan,
+        "vegetarian" : vegetarian
+      });
+      recKey = newRef.key;
+    }
 
     //add recipe to user's list
+    var userRecRef = firebase.database().ref('users/' + user + '/recipes');
+    userRecRef.push(recKey)
+
 };
 
 $(window).on('load', function () {
-
   // Find the HTML element with the id inpForm, and when the submit
   // event is triggered on that element, call submitRecipe.
   $("#inpForm").submit(submitRecipe);
