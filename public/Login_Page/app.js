@@ -64,7 +64,7 @@
         var uname = u_name.value;
         writeuserdata(currentuser, pass, email, fname, lname, uname);
         alert("You have Been Logged in!!");
-        //window.location = "../MyRecipes/MyRecipes.html"
+        window.location = "../MyRecipes/MyRecipes.html"
         }
         else
         {
@@ -92,7 +92,7 @@
       }
     }
   });
-
+  var recid = "-M4KOaX8EdN3mCLdLVfA";
 
   function writeuserdata(userID, Password, email, fname, lname, uname)
   {
@@ -104,6 +104,9 @@
       friends: 0,
       username: uname,
     });
+    // var ref = firebase.database().ref('users/' + userID + '/recipes');
+    // ref.push("-M4KOaX8EdN3mCLdLVfA");
+
   }
 
 }());
