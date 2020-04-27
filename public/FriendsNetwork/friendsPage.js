@@ -17,25 +17,30 @@ var modal_content = ``;
 var reff = database.ref('users');
 reff.on('value', test, err);
 
+
   //traverse through the users friends in order to make cards for each
 function test(data) {
   var users = data.val();
   var keys = Object.keys(users);
-  console.log(keys)
+  var username = users[userID].username;
+  var firstName = users[userID].first_name;
+  var lastName = users[userID].last_name;
+  let card = document.getElementById('username');
+  var content = `  <tr>
+      <th><h1 class="display-4">${username}</h1></th>
+      <th></th>
+    </tr>
+  		`
+      card.innerHTML+=content;
+  //console.log(users[userID].first_name);
   if(users[userID].friends != undefined){
   var reccs = Object.keys(users[userID].friends);
   var length = reccs.length;
   }
   else{var length=0;}
 console.log(length);
-
-
-//here I reference the recipes array with what the user has stored
-  for (var i=0; i<length; i++){
-    var user_friends = database.ref('friends/' + users[userID].friends[reccs[i]]);
-//here I call the function gotData for the recipe information refrencing the reicpe array using the ids from the user
-    user_friends.on('value', gotUserData, errData);
-  }
+var reff = database.ref('users/'+userID);
+reff.on('value', gotUserData, err);
 
 }
 
@@ -54,46 +59,38 @@ function err(data) {
 console.log("err: ", data);
 }
 
+//building modals
 function gotUserData(data)
 {
   var friends =data.val();
   var friend_id = data.key;
   //var keys = Object.keys(recipes);
-  console.log(data);
+for(var i = 0; i<friends.friends.length; i++)
+{
+  var reff = database.ref('users/'+friends.friends[i]);
+  reff.on('value', fillFriends, err);
+  //for loop for length 0->i
+}
   let container = document.getElementById('friends');
   let modals = document.getElementById('modals');
+  let title = document.getElementById('username');
   //friend info below (username name recipes)
-  var username = user.username;
-  var firstName = user.first_name;
-  var lastName = user.last_name;
+
+
   //var recipes = user.recipes; //then find out how to connect all that info (in fill_saved) by attaching to this var
 
   //builds the friend card
     var modal_name = "friend_"+number;
     var card_name = "card_"+friend_index;
+    var title_name = "title_";
     //var pic_id = "pic_"+number; //there are no pics for each user
     number++;
     friend_index++;
-    content = `
-    <div class="col-sm-4">
 
-      <div class="card " style="background-color:#ff7366;height:500px">
-        <div id="${card_name}">
-        <button onclick="Display(${modal_name})">View Friend</button>
-        <button onclick="DeleteFriend(${card_name})">Delete</button>
-        <div class="card-block">
-          <h4 class="card-title">${username}</h4>
-        </div>
-        <div class="card-block">
-        </div>
-      </div>
-      </div>
-    </div>
-    `;
-    container.innerHTML += content;
-    //getImageUrl(image, pic_id); //np pics in user profiles
+
 
     //here I build the modal for each friend and its appropriate info
+/*
     modal_content = `
         <div id="${modal_name}" class="modal">
         <!-- Modal content -->
@@ -118,6 +115,65 @@ function gotUserData(data)
 
     modals.innerHTML += modal_content
   //call fill_saved(data) to get recipe cards?
+*/
+
+}
+
+function fillFriends(data)
+{
+  //console.log(data.val())
+  var friend = data.val();
+  var firstName = friend.first_name;
+  var lastName = friend.last_name;
+  var username = friend.username;
+  //console.log(lastName);
+  var container = document.getElementById('friends');
+  var modals = document.getElementById('modals');
+  var modal_name = "modal_"+number; //makes unique id for every friend
+  number++;
+  var content = `
+  <div class="col-sm-4">
+
+    <div class="card " style="background-color:#ff7366;height:250px">
+      <div id="card_name">
+      <button onclick="Display(${modal_name})">View Friend</button>
+      <div class="card-block">
+        <h4 class="card-title">${username}</h4>
+        <p class="card-text">first name: ${firstName}</p>
+        <p class="card-text">last name: ${lastName}</p>
+      </div>
+      <div class="card-block">
+      </div>
+    </div>
+    </div>
+  </div>
+  `
+  container.innerHTML += content;
+  var keys = Object.keys(friend.recipes);
+  var length = Object.keys(friend.recipes).length;
+  var modal_content =  `
+  <div id="${modal_name}" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" onclick="Close(${modal_name})">&times;</span>
+      <div class="modal-header">
+    <h2>${username} </h2>
+    </div>
+
+    <div class="modal-body">
+      <p>Recipes: </p> `
+      for(var i = 0; i < length; i++)
+      {
+        modal_content += `
+        <li>${friend.recipes[keys[i]]}</li>` //find a way to pull this name from the recipe database
+      }
+      modal_content += `
+    </div>
+  </div>
+</div>
+  `
+  modals.innerHTML += modal_content;
+
 }
 
 //display the recipe modal when the view button is clicked
@@ -128,7 +184,7 @@ function Display(id)
 
 function Close(id)
 {
-  document.getElementById("genericRecipe").style.display = "none";
+  document.getElementById(id.id).style.display = "none";
 }
 
 window.onclick = function(event)
@@ -301,23 +357,6 @@ function fill_saved(data)//recipe card + modal (edit to be just cards on the mod
   */
 }
 
-
-//Vanessa's Code
-function getImageUrl(pic, id) {
-  /*
-  console.log(id);
-  var storage = firebase.storage();
-  var storageRef = storage.ref();
-  var image_url;
-  var word = "images/" + pic;
-  var imageRef = storageRef.child(word);
-  console.log(id);
-    imageRef.getDownloadURL().then(function(url) {
-      // Once we have the download URL, we set it to our img element
-      document.getElementById(id).src = url;
-    })
-    */
-}
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
