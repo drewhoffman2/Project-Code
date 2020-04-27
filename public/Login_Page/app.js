@@ -20,9 +20,11 @@
   const btnSignup = document.getElementById('btnSignup');
   const btnLogout = document.getElementById('btnLogout');
   var create=false;
+  var login=false;
   var count=0;
 
   btnlogin.addEventListener('click', e => {
+    //login=true;
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
@@ -48,9 +50,10 @@
   });
 
   firebase.auth().onAuthStateChanged(firebaseUser => {
-    if (firebaseUser){
-      if (create == true)
-      {
+    if (firebaseUser)
+    {
+        if (create == true)
+        {
         console.log(firebaseUser.uid);
         var currentuser = firebaseUser.uid;
         localStorage.setItem("idstor", currentuser)
@@ -62,19 +65,21 @@
         writeuserdata(currentuser, pass, email, fname, lname, uname);
         alert("You have Been Logged in!!");
         //window.location = "../MyRecipes/MyRecipes.html"
-      }
-      else {
-        console.log(firebaseUser.uid);
-        var currentuser = firebaseUser.uid;
-        localStorage.setItem("idstor", currentuser)
-        var email = firebaseUser.uid.email;
-        var pass = firebaseUser.uid.password;
-        alert("You have Been Logged in!!");
-        //window.location = "../MyRecipes/MyRecipes.html"
-        //btnLogout.classList.remove('hide');
-      }
+        }
+        else
+        {
+          console.log(firebaseUser.uid);
+          var currentuser = firebaseUser.uid;
+          localStorage.setItem("idstor", currentuser)
+          var email = firebaseUser.uid.email;
+          var pass = firebaseUser.uid.password;
+          alert("You have Been Logged in!!");
+          //window.location = "../MyRecipes/MyRecipes.html"
+          //btnLogout.classList.remove('hide');
+        }
     }
-    else {
+    else
+    {
       console.log('not logged in')
       alert("You are Currently Logged out");
       if(count==1)
