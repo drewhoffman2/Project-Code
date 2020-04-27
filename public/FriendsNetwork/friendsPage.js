@@ -3,7 +3,7 @@
  var userID = localStorage.getItem("idstor");
 var friend_index=0;
  firebase.analytics();
- console.log(userID);
+ //console.log(userID);
  const database = firebase.database();
 
 //2) current user's profile
@@ -118,7 +118,14 @@ function fillFriends(data)
       for(var i = 0; i < length; i++)
       {
         modal_content += `
-        <li>${friend.recipes[keys[i]]}</li>` //find a way to pull this name from the recipe database
+        <li>${friend.recipes[keys[i]]}</li>`
+         //find a way to pull this recipe id from the recipe part of the database
+/*
+         var currentrecipe = friend.recipes[keys[i]];
+         var reff = database.ref('recipes/'+currentrecipe);
+         reff.on('value', gotModal, err);
+         //console.log(recipes[recipeID].recipe_name);
+*/
       }
       modal_content += `
     </div>
@@ -155,3 +162,46 @@ window.onclick = function(event)
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function gotModal(data) {
+  var recipes =data.val();
+  var recipe_id = data.key;
+  //var keys = Object.keys(recipes);
+  //console.log(recipes.recipes[0])
+for(var i = 0; i<recipes.recipes.length; i++)
+{
+  var reff = database.ref('recipes/'+recipes.recipes[i]);
+  reff.on('value', fillRecipes, err);
+}
+
+}
+
+function fillRecipes(data)
+{
+  console.log(data.val())
+  var recipes = data.val();
+  var description = recipes.descrip;
+  var image = recipes.image;
+  var name = recipes.recipe_name;
+  console.log(name);
+  var container = document.getElementById('recipes');
+  //var modal_name = "modal_"+number; //makes unique id for every friend
+  number++;
+  var content = `
+  <div class="col-sm-4">
+
+    <div class="card " style="background-color:#ff7366;height:250px">
+      <div id="card_name">
+      <div class="card-block">
+      <img id="${image}" class="card-img-top img-fluid" style="height:230px" src="../images/spaghetti.jpg" alt="Card image cap" >
+        <h4 class="card-title">${name}</h4>
+        <p class="card-text">first name: ${description}</p>
+      </div>
+      <div class="card-block">
+      </div>
+    </div>
+    </div>
+  </div>
+  `
+  container.innerHTML += content;
+}
