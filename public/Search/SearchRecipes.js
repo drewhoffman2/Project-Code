@@ -100,15 +100,15 @@ function getAdvancedSearch() {
 
     // if statements to check if glutenFree. vegetarian, or vegan are clicked and add to localStorage
     if (document.getElementById("glutenFree").checked) {
-      localStorage.setItem("GlutenFree", "Gluten Free");
+      localStorage.setItem("GlutenFree", true);
     }
 
     if (document.getElementById("vegetarian").checked) {
-      localStorage.setItem("Vegetarian", "Vegetarian");
+      localStorage.setItem("Vegetarian", true);
     }
 
     if (document.getElementById("vegan").checked) {
-      localStorage.setItem("Vegan", "Vegan");
+      localStorage.setItem("Vegan", true);
     }
 
     var ingre = [];
@@ -285,6 +285,7 @@ function findResults(type) {
 
 // convert minutes to hours as string
 function MinutesToHours(minutes) {
+  console.log(minutes);
   var conversion;
   if (minutes > 60) {
     var hours = Math.floor(minutes/60);
@@ -517,6 +518,7 @@ function gotDataAdvanced(data) {
       // otherwise, test other recipes
 
       if (found == true) {
+        console.log("requirements")
         //console.log(localStorage.getItem("Requirements"));
         var requirements = localStorage.getItem("Requirements");
 
@@ -527,7 +529,7 @@ function gotDataAdvanced(data) {
           var rating = recipes[k].rating;
           var user_rating = localStorage.getItem("Rating");
           // check to see if the user rating does not match the current recipes rating
-          if (rating != user_rating) {
+          if (rating > user_rating) {
             // set found to false showing this recipe is not a match
             found = false;
           }
@@ -539,7 +541,7 @@ function gotDataAdvanced(data) {
           var gf = recipes[k].glutenFree;
           var user_gf = localStorage.getItem("GlutenFree");
           // check to see if the recipe's gluten free matches the user
-          if (gf != user_gf) {
+          if (gf && user_gf == true) {
             // if recipe is not gluten free --> found is false --> recipe does not match
             found = false;
           }
@@ -550,22 +552,24 @@ function gotDataAdvanced(data) {
           var veg = recipes[k].vegetarian;
           var user_veg = localStorage.getItem("Vegetarian");
           // check to see if the recipe's vegetarian matches the user
-          if (veg != user_veg) {
+          if (veg && user_veg == true) {
             // if recipe is not vegetarian --> found is false --> recipe does not match
             found = false;
           }
         }
 
+        console.log(found);
         // check if there is a vegan requirement
         if (found == true && requirements[6] == 1) {
           var vegan = recipes[k].vegan;
           var user_vegan = localStorage.getItem("Vegan");
           // check to see if the recipe's vegan matches the user
-          if (vegan != user_vegan) {
+          if (vegan && user_vegan == true) {
             // if recipe is not vegan --> found is false --> recipe does not match
             found = false;
           }
         }
+
 
         // check if there is a ingredient requirement
         if (found == true && requirements[8] == 1) {
@@ -583,20 +587,20 @@ function gotDataAdvanced(data) {
               }
             }
           }
-
           // check to see if the current recipe has all the ingredients that the user selected
           if (counter == count) {
             found = true;
           }
         }
 
-        // check if there is a vegetarian requirement
+        console.log(found);
+        // check if there is a time requirement
         if (found == true && requirements[10] == 1) {
-          var time = recipes[k].vegetarian;
-          var user_time = localStorage.getItem("Vegetarian");
-          // check to see if the recipe's gluten free matches the user
-          if (time != user_time) {
-            // if recipe is not gluten free --> found is false --> recipe does not match
+          console.log(requirements[10]);
+          var time = recipes[k].make_time;
+          var user_time = localStorage.getItem("MaxTime");
+          // check to see if the recipe's time is less than max time
+          if (time > user_time) {
             found = false;
           }
         }
