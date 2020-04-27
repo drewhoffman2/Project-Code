@@ -153,8 +153,8 @@ function fill_saved(data)
               <p id="rating">${rating}</p>
             </div>
             <div class="col">
-              <h5>Make Time</h5>
-              <p id="time">${maketime} minute(s)</p>
+              <h5>Make Tim</h5>
+              <p id="time">${maketime}</p>
             </div>
             <div class="col">
               <h5>Servings</h5>
