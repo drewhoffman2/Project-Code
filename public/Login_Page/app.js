@@ -20,7 +20,6 @@
   const btnSignup = document.getElementById('btnSignup');
   const btnLogout = document.getElementById('btnLogout');
   var create=false;
-  var login=false;
   var count=0;
 
   btnlogin.addEventListener('click', e => {
@@ -38,8 +37,7 @@
     const pass = txt_Password.value;
     const auth = firebase.auth();
     const promise = auth.createUserWithEmailAndPassword(email, pass);
-    promise
-    .catch(e => console.log(e.message));
+    promise.catch(e => console.log(e.message));
     console.log('created new')
   });
 
@@ -92,7 +90,7 @@
       }
     }
   });
-  var recid = "-M4KOaX8EdN3mCLdLVfA";
+  //var recid = "-M4KOaX8EdN3mCLdLVfA";
 
   function writeuserdata(userID, Password, email, fname, lname, uname)
   {
