@@ -1,20 +1,20 @@
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
-  authDomain: "finish-my-dish.firebaseapp.com",
-  databaseURL: "https://finish-my-dish.firebaseio.com",
-  projectId: "finish-my-dish",
-  storageBucket: "finish-my-dish.appspot.com",
-  messagingSenderId: "128425488934",
-  appId: "1:128425488934:web:fdb5d13d67bbb85da92ce7",
-  measurementId: "G-CGCBSG2CG1"
-};
+// var firebaseConfig = {
+//   apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
+//   authDomain: "finish-my-dish.firebaseapp.com",
+//   databaseURL: "https://finish-my-dish.firebaseio.com",
+//   projectId: "finish-my-dish",
+//   storageBucket: "finish-my-dish.appspot.com",
+//   messagingSenderId: "128425488934",
+//   appId: "1:128425488934:web:fdb5d13d67bbb85da92ce7",
+//   measurementId: "G-CGCBSG2CG1"
+// };
 
 // Initialize Firebase
 var userID = localStorage.getItem("idstor");
 var recipe_index=0;
-firebase.initializeApp(firebaseConfig);
+//firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 console.log(userID);
 const database = firebase.database();
@@ -35,13 +35,13 @@ function test(data) {
   //console.log(userii)
   //match the user that I am using with the proper id in the array and use that as the index
   //console.log(users[userID].recipes);
-  if(users[userID].recipes != undefined){
-  var length = users[userID].recipes.length;
-  var recipe_ids = users[userID].recipes;
+  if(typeof(users[keys[7]].recipes) != undefined){
+  var length = users[keys[7]].recipes.length;
+  var recipe_ids = users[keys[7]].recipes;
   }
   else{var length=0;}
-  if(users[userID].saved_recipes != undefined){
-   var saved_rec = Object.keys(users[userID].saved_recipes);
+  if(users[keys[7]].saved_recipes != undefined){
+   var saved_rec = Object.keys(users[keys[7]].saved_recipes);
    var saved_length = saved_rec.length;
    }
    else {var saved_length = 0;}
@@ -55,7 +55,7 @@ function test(data) {
 
   for (var i=0; i<saved_length; i++)
   {
-    var user_saved = database. ref('recipes/' + users[userID].saved_recipes[saved_rec[i]]);
+    var user_saved = database. ref('recipes/' + users[keys[7]].saved_recipes[saved_rec[i]]);
     user_saved.on('value', fill_saved, err);
   }
 
@@ -258,7 +258,7 @@ let modals = document.getElementById('modals');
       <div id="${card_name}">
       <img id="${pic_id}" class="card-img-top img-fluid" style="height:230px" src="../images/spaghetti.jpg" alt="Card image cap" >
       <button onclick="Display(${modal_name})">View Recipe</button>
-      <button onclick="privacyChange(${card_name})">Change Privacy</button>
+      <button onclick="privacyChange(${recipe_id.toString()})">Change Privacy</button>
       <button onclick="DeleteRec(${card_name})">Delete</button>
       <div class="card-block">
         <h4 class="card-title">${name}</h4>
@@ -353,7 +353,7 @@ function Display(id)
 //function to change the privacy of a recipe once the button is pushed
 function privacyChange(id)
 {
-  console.log(id);
+  console.log();
 }
 
 //Vanessa's Code
