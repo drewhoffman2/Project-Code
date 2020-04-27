@@ -6,9 +6,9 @@ var submitRecipe = function() {
     //get info from html IDs
     var user = userID;
     var descrip = $("#recDescript").val();
-    var maketime = $("#recTime").val();
+    var maketime = parseInt($("#recTime").val());
     var recipe_name = $("#recTitle").val();
-    var servings = $("#recServ").val();
+    var servings = parseInt($("#recServ").val());
 
     //collect all of ingredient/instruction array
     var ingredients = [];
