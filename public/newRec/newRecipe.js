@@ -6,9 +6,9 @@ var submitRecipe = function() {
     //get info from html IDs
     var user = userID;
     var descrip = $("#recDescript").val();
-    var maketime = parseInt($("#recTime").val());
+    var maketime = Number($("#recTime").val());
     var recipe_name = $("#recTitle").val();
-    var servings = parseInt($("#recServ").val());
+    var servings = Number($("#recServ").val());
 
     //collect all of ingredient/instruction array
     var ingredients = [];
@@ -63,7 +63,7 @@ var submitRecipe = function() {
         "gluten_free" : gluten_free,
         "image" : imgName,
         "ingredients" : ingredients,
-        "maketime" : maketime,
+        "make_time" : maketime,
         "private" : private,
         "rating" : 0,
         "recipe_name" : recipe_name,
@@ -79,7 +79,7 @@ var submitRecipe = function() {
         "directions" : directions,
         "gluten_free" : gluten_free,
         "ingredients" : ingredients,
-        "maketime" : maketime,
+        "make_time" : maketime,
         "private" : private,
         "rating" : 0,
         "recipe_name" : recipe_name,
