@@ -20,6 +20,7 @@
   const btnSignup = document.getElementById('btnSignup');
   const btnLogout = document.getElementById('btnLogout');
   var create=false;
+  var login=false;
   var count=0;
 
   btnlogin.addEventListener('click', e => {
