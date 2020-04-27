@@ -1,17 +1,3 @@
-// Your web app's Firebase configuration
-// var firebaseConfig = {
-//   apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
-//   authDomain: "finish-my-dish.firebaseapp.com",
-//   databaseURL: "https://finish-my-dish.firebaseio.com",
-//   projectId: "finish-my-dish",
-//   storageBucket: "finish-my-dish.appspot.com",
-//   messagingSenderId: "128425488934",
-//   appId: "1:128425488934:web:fdb5d13d67bbb85da92ce7",
-//   measurementId: "G-CGCBSG2CG1"
-// };
-// Initialize Firebase
-//firebase.initializeApp(firebaseConfig);
-
 var userID = localStorage.getItem("idstor");
 console.log(userID);
 var recRef = firebase.database().ref('recipes');
