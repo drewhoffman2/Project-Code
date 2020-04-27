@@ -1,6 +1,6 @@
 var numIngredients = 0;
-var userIDD = localStorage.getItem("idstor");
-console.log(userIDD);
+var userID = localStorage.getItem("idstor");
+console.log(userID);
 console.log("useriddddd^");
 // function to add another text box for ingredient items
 function createNewElement() {
@@ -793,7 +793,7 @@ function getCreator(data) {
 // function to add the current recipe to saved recipes array of the logged in user
 function saveRecipe() {
   //console.log(localStorage.getItem("CurrentUser"));
-  var name = userIDD;
+  var name = userID;
   var recipeID = localStorage.getItem("ID");
   var ref = database.ref('users/' + name + "/saved_recipes");
 
@@ -811,7 +811,7 @@ function gotUserInfo(data) {
   var users = data.val();
   // get data in array for all keys in recipes
   var keys = Object.keys(users);
-  var currentUser = userIDD, found = false, i = 0;
+  var currentUser = userID, found = false, i = 0;
 
   while (found == false) {
     // declare variables
