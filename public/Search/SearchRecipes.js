@@ -529,7 +529,7 @@ function gotDataAdvanced(data) {
           var rating = recipes[k].rating;
           var user_rating = localStorage.getItem("Rating");
           // check to see if the user rating does not match the current recipes rating
-          if (rating != user_rating) {
+          if (rating > user_rating) {
             // set found to false showing this recipe is not a match
             found = false;
           }
