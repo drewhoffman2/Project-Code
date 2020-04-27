@@ -35,13 +35,13 @@ function test(data) {
   //console.log(userii)
   //match the user that I am using with the proper id in the array and use that as the index
   //console.log(users[userID].recipes);
-  if(typeof(users[keys[7]].recipes) != undefined){
-  var length = users[keys[7]].recipes.length;
-  var recipe_ids = users[keys[7]].recipes;
+  if(typeof(users[userID].recipes) != undefined){
+  var length = users[userID].recipes.length;
+  var recipe_ids = users[userID].recipes;
   }
   else{var length=0;}
-  if(users[keys[7]].saved_recipes != undefined){
-   var saved_rec = Object.keys(users[keys[7]].saved_recipes);
+  if(users[userID].saved_recipes != undefined){
+   var saved_rec = Object.keys(users[userID].saved_recipes);
    var saved_length = saved_rec.length;
    }
    else {var saved_length = 0;}
@@ -55,7 +55,7 @@ function test(data) {
 
   for (var i=0; i<saved_length; i++)
   {
-    var user_saved = database. ref('recipes/' + users[keys[7]].saved_recipes[saved_rec[i]]);
+    var user_saved = database. ref('recipes/' + users[userID].saved_recipes[saved_rec[i]]);
     user_saved.on('value', fill_saved, err);
   }
 
