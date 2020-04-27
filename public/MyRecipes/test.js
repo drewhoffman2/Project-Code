@@ -59,7 +59,7 @@ console.log(length);
 
   for (var i=0; i<saved_length; i++)
   {
-    var user_saved = database. ref('recipes/' + users[userID].saved_recipes[saved_rec[i]]);
+    var user_saved = database. ref('recipes/' + users[keys[7]].saved_recipes[saved_rec[i]]);
     user_saved.on('value', fill_saved, err);
   }
 

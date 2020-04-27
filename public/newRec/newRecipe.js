@@ -105,7 +105,7 @@ var submitRecipe = function() {
     }
 
     //add recipe to user's list
-    var userRecRef = firebase.database().ref('users/' + user + '/recipes');
+    var userRecRef = firebase.database().ref('users/' + userID + '/recipes');
     userRecRef.push(recKey)
 
 };

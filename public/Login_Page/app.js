@@ -20,11 +20,10 @@
   const btnSignup = document.getElementById('btnSignup');
   const btnLogout = document.getElementById('btnLogout');
   var create=false;
-  var login=false;
   var count=0;
 
   btnlogin.addEventListener('click', e => {
-    //login=true;
+    login=true;
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();
@@ -38,8 +37,7 @@
     const pass = txt_Password.value;
     const auth = firebase.auth();
     const promise = auth.createUserWithEmailAndPassword(email, pass);
-    promise
-    .catch(e => console.log(e.message));
+    promise.catch(e => console.log(e.message));
     console.log('created new')
   });
 
@@ -64,7 +62,7 @@
         var uname = u_name.value;
         writeuserdata(currentuser, pass, email, fname, lname, uname);
         alert("You have Been Logged in!!");
-        //window.location = "../MyRecipes/MyRecipes.html"
+        window.location = "../MyRecipes/MyRecipes.html"
         }
         else
         {
@@ -73,8 +71,12 @@
           localStorage.setItem("idstor", currentuser)
           var email = firebaseUser.uid.email;
           var pass = firebaseUser.uid.password;
-          alert("You have Been Logged in!!");
-          //window.location = "../MyRecipes/MyRecipes.html"
+          if (login==true){
+            alert("You have Been Logged in!!");
+            window.location = "../MyRecipes/MyRecipes.html"
+          }
+          // alert("You have Been Logged in!!");
+          // window.location = "../MyRecipes/MyRecipes.html"
           //btnLogout.classList.remove('hide');
         }
     }
@@ -88,7 +90,7 @@
       }
     }
   });
-
+  //var recid = "-M4KOaX8EdN3mCLdLVfA";
 
   function writeuserdata(userID, Password, email, fname, lname, uname)
   {
@@ -100,6 +102,9 @@
       friends: 0,
       username: uname,
     });
+    // var ref = firebase.database().ref('users/' + userID + '/recipes');
+    // ref.push("-M4KOaX8EdN3mCLdLVfA");
+
   }
 
 }());
