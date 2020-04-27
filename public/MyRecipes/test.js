@@ -121,7 +121,6 @@ function fill_saved(data)
         <div id="${card_name}">
         <img id="${pic_id}" class="card-img-top img-fluid" style="height:230px" src="../images/spaghetti.jpg" alt="Card image cap" >
         <button onclick="Display(${modal_name})">View Recipe</button>
-        <button onclick="DeleteRec(${card_name})">Delete</button>
         <div class="card-block">
           <h4 class="card-title">${name}</h4>
           <p class="card-text">${description}</p>
@@ -262,8 +261,6 @@ let modals = document.getElementById('modals');
       <div id="${card_name}">
       <img id="${pic_id}" class="card-img-top img-fluid" style="height:230px" src="../images/spaghetti.jpg" alt="Card image cap" >
       <button onclick="Display(${modal_name})">View Recipe</button>
-      <button onclick="privacyChange(${recipe_id.toString()})">Change Privacy</button>
-      <button onclick="DeleteRec(${card_name})">Delete</button>
       <div class="card-block">
         <h4 class="card-title">${name}</h4>
         <p class="card-text">${description}</p>
