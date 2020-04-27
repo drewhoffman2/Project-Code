@@ -32,18 +32,14 @@ function test(data) {
   var users = data.val();
   var keys = Object.keys(users);
   console.log(keys)
+  //console.log(userii)
   //match the user that I am using with the proper id in the array and use that as the index
   //console.log(users[userID].recipes);
-  // var ref = database.ref('users/' + userID + '/recipes');
-  // ref.push("-M4MIKA1AWwyCTemssd-");
-  if(users[userID].recipes != undefined){
-  //var length = users[userID].recipes.length;
-  //var recipe_ids = users[userID].recipes;
-  var reccs = Object.keys(users[userID].recipes);
-  var length = reccs.length;
+  if(typeof(users[userID].recipes) != undefined){
+  var length = users[userID].recipes.length;
+  var recipe_ids = users[userID].recipes;
   }
   else{var length=0;}
-console.log(length);
   if(users[userID].saved_recipes != undefined){
    var saved_rec = Object.keys(users[userID].saved_recipes);
    var saved_length = saved_rec.length;
@@ -52,14 +48,14 @@ console.log(length);
 
 //here I reference the recipes array with what the user has stored
   for (var i=0; i<length; i++){
-    var user_recipes = database.ref('recipes/' + users[userID].recipes[reccs[i]]);
+    var user_recipes = database.ref('recipes/' + recipe_ids[i]);
 //here I call the function gotData for the recipe information refrencing the reicpe array using the ids from the user
     user_recipes.on('value', gotData, errData);
   }
 
   for (var i=0; i<saved_length; i++)
   {
-    var user_saved = database. ref('recipes/' + users[keys[7]].saved_recipes[saved_rec[i]]);
+    var user_saved = database. ref('recipes/' + users[userID].saved_recipes[saved_rec[i]]);
     user_saved.on('value', fill_saved, err);
   }
 
