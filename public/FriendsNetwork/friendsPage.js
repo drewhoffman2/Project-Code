@@ -22,8 +22,8 @@ function test(data) {
   var users = data.val();
   var keys = Object.keys(users);
   console.log(keys)
-  if(users[keys[7]].friends != undefined){
-  var reccs = Object.keys(users[keys[7]].friends);
+  if(users[userID].friends != undefined){
+  var reccs = Object.keys(users[userID].friends);
   var length = reccs.length;
   }
   else{var length=0;}
@@ -32,7 +32,7 @@ console.log(length);
 
 //here I reference the recipes array with what the user has stored
   for (var i=0; i<length; i++){
-    var user_friends = database.ref('friends/' + users[keys[7]].friends[reccs[i]]);
+    var user_friends = database.ref('friends/' + users[userID].friends[reccs[i]]);
 //here I call the function gotData for the recipe information refrencing the reicpe array using the ids from the user
     user_friends.on('value', gotUserData, errData);
   }
