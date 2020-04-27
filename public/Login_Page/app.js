@@ -13,16 +13,14 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  // var gloabalVariable={
-  //   userii: ""
-  // };
-
 (function(){
-  const txtEmail = document.getElementById('txtEmail');
-  const txtPassword = document.getElementById('txtPassword');
+  const txtEmail = document.getElementById('txt_Email');
+  const txtPassword = document.getElementById('txt_Password');
   const btnlogin = document.getElementById('btnLogin');
   const btnSignup = document.getElementById('btnSignup');
   const btnLogout = document.getElementById('btnLogout');
+  var create=false;
+  var count=0;
 
   btnlogin.addEventListener('click', e => {
     const email = txtEmail.value;
@@ -33,6 +31,7 @@
   });
 
   btnSignup.addEventListener('click', e => {
+    create=true;
     const email = txt_Email.value;
     const pass = txt_Password.value;
     const auth = firebase.auth();
@@ -44,32 +43,49 @@
 
   btnLogout.addEventListener('click', e => {
     firebase.auth().signOut();
+    count=1
+    //window.location = "../index.html"
   });
 
   firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser){
-      console.log(firebaseUser.uid);
-      var currentuser = firebaseUser.uid;
-      localStorage.setItem("idstor", currentuser)
-      var email = txt_Email.value;
-      var pass = txt_Password.value;
-      var fname = f_name.value;
-      var lname = l_name.value;
-      writeuserdata(currentuser, pass, email, fname, lname);
-      //varcarry(currentuser);
-      alert("You have Been Logged in!!");
-      window.location = "../MyRecipes/MyRecipes.html"
-      btnLogout.classList.remove('hide');
+      if (create == true)
+      {
+        console.log(firebaseUser.uid);
+        var currentuser = firebaseUser.uid;
+        localStorage.setItem("idstor", currentuser)
+        var email = txt_Email.value;
+        var pass = txt_Password.value;
+        var fname = f_name.value;
+        var lname = l_name.value;
+        var uname = u_name.value;
+        writeuserdata(currentuser, pass, email, fname, lname, uname);
+        alert("You have Been Logged in!!");
+        //window.location = "../MyRecipes/MyRecipes.html"
+      }
+      else {
+        console.log(firebaseUser.uid);
+        var currentuser = firebaseUser.uid;
+        localStorage.setItem("idstor", currentuser)
+        var email = firebaseUser.uid.email;
+        var pass = firebaseUser.uid.password;
+        alert("You have Been Logged in!!");
+        //window.location = "../MyRecipes/MyRecipes.html"
+        //btnLogout.classList.remove('hide');
+      }
     }
     else {
       console.log('not logged in')
       alert("You are Currently Logged out");
-      btnLogout.classList.add('hide');
+      if(count==1)
+      {
+        window.location = "../index.html"
+      }
     }
   });
 
 
-  function writeuserdata(userID, Password, email, fname, lname)
+  function writeuserdata(userID, Password, email, fname, lname, uname)
   {
     firebase.database().ref('users/' + userID).set({
       email: email,
@@ -77,22 +93,8 @@
       first_name: fname,
       last_name: lname,
       friends: 0,
+      username: uname,
     });
   }
-
-  // function varcarry(useri){
-  //   //console.log(useri);
-  //   userii = useri;
-  //   //console.log(userii)
-  // }
-
-  // var modal = document.getElementById('id01');
-  //
-  //   // When the user clicks anywhere outside of the modal, close it
-  //   window.onclick = function(event) {
-  //     if (event.target == modal) {
-  //       modal.style.display = "none";
-  //     }
-  //   }
 
 }());
