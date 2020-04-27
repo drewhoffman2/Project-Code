@@ -43,14 +43,20 @@ var submitRecipe = function() {
     }
 
     //save image in storage
+    var storeRef = firebase.storage().ref();
     var imgFile = $('#recImage').get(0).files[0];
     if(imgFile){
-      var storeRef = firebase.storage().ref();
       var imgName = imgFile.name;
+      const metadata = { contentType: imgFile.type };
       var picRef = storeRef.child('images/' + imgName);
-      picRef.put(imgFile).then(function(snapshot){
-        console.log('Uploaded image');
-      })
+      const task = picRef.child(imgName).put(imgFile, metadata);
+task
+  .then(snapshot => snapshot.ref.getDownloadURL())
+  .then((url) => {
+    console.log(url);
+    document.querySelector('#recImage').src = url;
+  })
+  .catch(console.error);
     }
 
     var recKey;
