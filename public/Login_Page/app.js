@@ -1,5 +1,4 @@
-
-  var firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyAjEOADd6TSikpnj8e7RZ2FkA9k1cDwkjU",
     authDomain: "finish-my-dish.firebaseapp.com",
     databaseURL: "https://finish-my-dish.firebaseio.com",
@@ -22,6 +21,7 @@
   var create=false;
   var login=false;
   var count=0;
+  const database = firebase.database();
 
   btnlogin.addEventListener('click', e => {
     login=true;
@@ -44,7 +44,7 @@
 
   btnLogout.addEventListener('click', e => {
     firebase.auth().signOut();
-    count=1
+    count=1;
     //window.location = "../index.html"
   });
 
@@ -61,6 +61,7 @@
         var fname = f_name.value;
         var lname = l_name.value;
         var uname = u_name.value;
+        console.log(uname);
         writeuserdata(currentuser, pass, email, fname, lname, uname);
         alert("You have Been Logged in!!");
         window.location = "../MyRecipes/MyRecipes.html"
@@ -95,17 +96,14 @@
 
   function writeuserdata(userID, Password, email, fname, lname, uname)
   {
-    firebase.database().ref('users/' + userID).set({
+    database.ref('users/' + userID).set({
       email: email,
       password: Password,
       first_name: fname,
       last_name: lname,
       friends: 0,
-      username: uname,
+      username: uname
     });
-    // var ref = firebase.database().ref('users/' + userID + '/recipes');
-    // ref.push("-M4KOaX8EdN3mCLdLVfA");
-
   }
 
 }());
