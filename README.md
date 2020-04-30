@@ -12,14 +12,14 @@ Deployment:
   Finish My Dish is hosted on Firebase. As well, Firebase also holds the real-time database that holds user and recipe data used for our application. 
 
 Repo Organization:
-  public - holds all html, css, and javascript that is used for hosting on Firebase
-    FriendsNetwork - holds code for Friends Page
-    Login_Page - holds code for login page
-    Search - holds code for Search page
-    images - holds all images used across the website
-    newRec - holds code for New Recipe page
-    404.html - html page to display when there is a 404 error
-    index (.html & .css & .js) - code for home page that is displayed when user accesses url hosted by Firebase
-  database -  holds old code for PostgreSQL database that was used as foundation for Firebase database
-  Other files not in folder - code that declares Firebase rules, necessary code for deploying and hosting Firebase
+  * public - holds all html, css, and javascript that is used for hosting on Firebase
+     - FriendsNetwork - holds code for Friends Page
+     - Login_Page - holds code for login page
+     - Search - holds code for Search page
+     - images - holds all images used across the website
+     - newRec - holds code for New Recipe page
+     - 404.html - html page to display when there is a 404 error
+     - index (.html & .css & .js) - code for home page that is displayed when user accesses url hosted by Firebase
+  * database -  holds old code for PostgreSQL database that was used as foundation for Firebase database
+  * Other files not in folder - code that declares Firebase rules, necessary code for deploying and hosting Firebase
     
